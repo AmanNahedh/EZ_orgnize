@@ -8,7 +8,6 @@ class Assets {
   static const String generalTextFilled = 'lib/General/Text_Filled.dart';
   static const String generatedAssets = 'lib/generated/assets.dart';
   static const String libMain = 'lib/main.dart';
-  static const String libRegisterNow = 'lib/RegisterNow.dart';
   static const String photoApple = 'lib/photo/Apple.png';
   static const String photoGoogle = 'lib/photo/Google.png';
   static const String screansLogin = 'lib/screans/login.dart';
