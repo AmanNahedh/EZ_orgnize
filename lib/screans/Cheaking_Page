@@ -1,3 +1,24 @@
 import 'package:flutter/material.dart';
 
-class cheak extends
+class cheak extends StatelessWidget{
+   const cheak({super.key});
+//show  home page or not 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+    body:StreamBulider<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+builder: (context, snapshot){
+        //Show home page 
+          if (snapshot.hasData){
+          return HomePage();
+        //retuen to login page
+        else{
+        return login();
+        }
+          }
+      }
+    )
+    );
+}
+}
