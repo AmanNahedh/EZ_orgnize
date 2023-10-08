@@ -1,8 +1,6 @@
-import 'package:ez_orgnize/screans/login.dart';
+import 'package:ez_orgnize/screans/Cheak.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'fire_base/firebase_options.dart';
 
 void main() async {
@@ -18,10 +16,9 @@ class Myapp extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
-    return  MaterialApp(
-
+    return  const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: log_in(),
+      home: cheak(),
     );
 
   }

@@ -4,21 +4,76 @@ import 'package:ez_orgnize/General/buttons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class log_in extends StatelessWidget {
+class log_in extends StatefulWidget {
   log_in({super.key});
 
+  @override
+  State<log_in> createState() => _log_inState();
+}
+
+class _log_inState extends State<log_in> {
   // text editing controllers
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
 
-//hhhhh
   // sign user in method
-  void logInUserIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: usernameController.text, password: passwordController.text);
-    print('done');
+  void logIn() async {
+    
+    //Loading
+    showDialog(
+        context: context,
+        builder: (context){
+          return const Center(
+          child:CircularProgressIndicator()
+          );
+        },//builder
+    );//showDialog
+
+
+
+    //sign in
+    try{await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text
+        );
+         //finish
+        Navigator.pop(context);
+
+        }on FirebaseAuthException catch(a){
+        //finish
+        Navigator.pop(context);
+
+
+        if(a.code == 'user-not-found'){
+        wrong_email();
+
+        print('no user linked with this emali');
+        }
+        else if(a.code == 'user-not-found'){
+        wrong_pass();
+      }
+    }
+
+
+  }
+void wrong_email(){
+    showDialog(context: context,
+        builder: (context){
+      return const AlertDialog(title: Text('wrong Email'),
+          );
+        },
+    );
   }
 
+  void wrong_pass(){
+    showDialog(context: context,
+      builder: (context){
+        return const AlertDialog(title: Text('wrong Password'),
+        );
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,10 +107,10 @@ class log_in extends StatelessWidget {
                 const SizedBox(
                   height: 50,
                 ),
-                //usernam
+                //email
                 Text_Filled(
-                  controller: usernameController,
-                  hintText: 'Username',
+                  controller: emailController,
+                  hintText: 'Please Enter Email',
                   obscureText: false,
                 ),
                 const SizedBox(
@@ -64,7 +119,7 @@ class log_in extends StatelessWidget {
                 //pass
                 Text_Filled(
                   controller: passwordController,
-                  hintText: 'Password',
+                  hintText: 'Please Enter Password',
                   obscureText: true,
                 ),
                 const SizedBox(
@@ -87,7 +142,7 @@ class log_in extends StatelessWidget {
                 const SizedBox(height: 25),
                 //sign in button
                 button(
-                  onTap: logInUserIn,
+                  onTap: logIn,
                 ),
                 const SizedBox(height: 25),
                 //coninue with
@@ -158,4 +213,4 @@ class log_in extends StatelessWidget {
       ),
     );
   }
-} //..
+}
