@@ -1,0 +1,15 @@
+import 'package:flutter/material.dart';
+
+class homePage exyends StatelessWidget{
+  const HomePage({super.key});
+ void signout(){
+   FirebaseAuth.instance.signOut();
+ }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        IconButton(onPressed:signOut)
+      )
+    )
+}
