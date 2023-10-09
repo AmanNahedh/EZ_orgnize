@@ -1,32 +1,13 @@
 {
   "project_info": {
-    "project_number": "826497345992",
-    "project_id": "ezorgnize",
-    "storage_bucket": "ezorgnize.appspot.com"
+    "project_number": "896680482343",
+    "project_id": "ezorganize-6fb0a",
+    "storage_bucket": "ezorganize-6fb0a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:826497345992:android:57328b86b9e6cfdc72b8fd",
-        "android_client_info": {
-          "package_name": "com.example.ez_orgize"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDYT5VzWnBhXHqljY2_iP3UEvMngOrpTzM"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:826497345992:android:b02f44cbe071502a72b8fd",
+        "mobilesdk_app_id": "1:896680482343:android:efaf0fda978a134689e002",
         "android_client_info": {
           "package_name": "com.example.ez_orgnize"
         }
@@ -34,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDYT5VzWnBhXHqljY2_iP3UEvMngOrpTzM"
+          "current_key": "AIzaSyDosXyXm4vyh1XvtqQoNXTGCIDzq9e9i-Q"
         }
       ],
       "services": {
