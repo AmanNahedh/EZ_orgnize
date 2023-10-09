@@ -20,7 +20,7 @@ class cheak extends StatelessWidget{
               }
               //show login page
               else{
-                return log_in();
+                return LogIn();
               }
             }
         )

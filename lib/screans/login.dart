@@ -1,79 +1,74 @@
 import 'package:ez_orgnize/General/Sqe_Title.dart';
 import 'package:ez_orgnize/General/Text_Filled.dart';
 import 'package:ez_orgnize/General/buttons.dart';
+import 'package:ez_orgnize/screans/Cheak.dart';
+import 'package:ez_orgnize/screans/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class log_in extends StatefulWidget {
-  log_in({super.key});
+class LogIn extends StatefulWidget {
+  LogIn({super.key});
 
   @override
-  State<log_in> createState() => _log_inState();
+  State<LogIn> createState() => _LogInState();
 }
 
-class _log_inState extends State<log_in> {
+class _LogInState extends State<LogIn> {
   // text editing controllers
   final emailController = TextEditingController();
 
   final passwordController = TextEditingController();
 
   // sign user in method
-  void logIn() async {
-    
+  void logIn(BuildContext context) async {
     //Loading
     showDialog(
-        context: context,
-        builder: (context){
-          return const Center(
-          child:CircularProgressIndicator()
-          );
-        },//builder
-    );//showDialog
-
-
+      context: context,
+      builder: (context) {
+        return const Center(child: CircularProgressIndicator());
+      }, //builder
+    ); //showDialog
 
     //sign in
-    try{await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text
-        );
-         //finish
-        Navigator.pop(context);
-
-        }on FirebaseAuthException catch(a){
-        //finish
-        Navigator.pop(context);
-
-
-        if(a.code == 'user-not-found'){
-        wrong_email();
-
-        print('no user linked with this emali');
-        }
-        else if(a.code == 'user-not-found'){
-        wrong_pass();
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+      print('doneeeee');
+      //finish
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => cheak(),
+        ),
+      );
+    } on FirebaseAuthException catch (a) {
+      print('Failed with error code: ${a.code}');
+      print(a.message);
+      //finish
+      Navigator.pop(context);
+      if (a.code == 'INVALID_LOGIN_CREDENTIALS') {
+        wrongInfo(context);
       }
     }
-
-
-  }
-void wrong_email(){
-    showDialog(context: context,
-        builder: (context){
-      return const AlertDialog(title: Text('wrong Email'),
-          );
-        },
-    );
   }
 
-  void wrong_pass(){
-    showDialog(context: context,
-      builder: (context){
-        return const AlertDialog(title: Text('wrong Password'),
+  void wrongInfo(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const AlertDialog(
+          title: Text('wrong Email or password'),
         );
       },
     );
   }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -142,7 +137,9 @@ void wrong_email(){
                 const SizedBox(height: 25),
                 //sign in button
                 button(
-                  onTap: logIn,
+                  onTap: () {
+                    logIn(context);
+                  },
                 ),
                 const SizedBox(height: 25),
                 //coninue with
@@ -197,12 +194,13 @@ void wrong_email(){
                       style: TextStyle(color: Colors.grey[700]),
                     ),
                     const SizedBox(width: 4),
-                    const Text(
-                      'Register now',
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
+                    TextButton(
+                      onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => Register(),
+                        ),
                       ),
+                      child: Text('Register now'),
                     ),
                   ],
                 )

@@ -2,9 +2,11 @@
 class Assets {
   Assets._();
 
+  static const String fireBaseFirebaseOptions = 'lib/fire_base/firebase_options.dart';
   static const String generalButtons = 'lib/General/buttons.dart';
   static const String generalSqeTitle = 'lib/General/Sqe_Title.dart';
   static const String generalTextFilled = 'lib/General/Text_Filled.dart';
+  static const String generalTextFormField = 'lib/General/textFormField.dart';
   static const String generatedAssets = 'lib/generated/assets.dart';
   static const String libMain = 'lib/main.dart';
   static const String photoApple = 'lib/photo/Apple.png';
@@ -12,5 +14,6 @@ class Assets {
   static const String screansCheak = 'lib/screans/Cheak.dart';
   static const String screansHomePage = 'lib/screans/home_page.dart';
   static const String screansLogin = 'lib/screans/login.dart';
+  static const String screansRegister = 'lib/screans/register.dart';
 
 }
