@@ -38,6 +38,11 @@ dependencies:
   firebase_core: ^2.16.0
   firebase_auth: ^4.10.1
   cloud_firestore: ^4.9.3
+  intl: ^0.18.1
+  country_list_pick: ^1.0.1+6
+  image_picker: ^1.0.4
+  firebase_storage: ^11.2.8
+  intl_phone_number_input: ^0.7.3+1
 
 dev_dependencies:
   flutter_test:
