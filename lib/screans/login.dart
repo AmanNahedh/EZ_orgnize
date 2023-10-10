@@ -1,4 +1,3 @@
-import 'package:ez_orgnize/General/Sqe_Title.dart';
 import 'package:ez_orgnize/General/Text_Filled.dart';
 import 'package:ez_orgnize/General/buttons.dart';
 import 'package:ez_orgnize/screans/Cheak.dart';
@@ -140,49 +139,6 @@ class _LogInState extends State<LogIn> {
                   onTap: () {
                     logIn(context);
                   },
-                ),
-                const SizedBox(height: 25),
-                //coninue with
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text(
-                          'Or continue with',
-                          style: TextStyle(color: Colors.grey[700]),
-                        ),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(height: 50),
-
-                // google + apple sign in buttons
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    // apple button
-                    Sqe_Title(imagePath: 'lib/photo/Apple.png'),
-                    const SizedBox(width: 8),
-
-                    // google button
-                    Sqe_Title(imagePath: 'lib/photo/Google.png'),
-                  ], //children
                 ),
                 const SizedBox(height: 20),
                 //not member
