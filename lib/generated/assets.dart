@@ -3,17 +3,25 @@ class Assets {
   Assets._();
 
   static const String fireBaseFirebaseOptions = 'lib/fire_base/firebase_options.dart';
+  static const String generalBirthdayInputWidget = 'lib/General/BirthdayInputWidget.dart';
   static const String generalButtons = 'lib/General/buttons.dart';
+  static const String generalCityPicker = 'lib/General/city_picker.dart';
+  static const String generalImagePicker = 'lib/General/image_picker.dart';
+  static const String generalPhoneNumber = 'lib/General/phone_number.dart';
   static const String generalSqeTitle = 'lib/General/Sqe_Title.dart';
   static const String generalTextFilled = 'lib/General/Text_Filled.dart';
   static const String generalTextFormField = 'lib/General/textFormField.dart';
+  static const String generalUploadImageToFirebase = 'lib/General/upload_image_to_firebase.dart';
   static const String generatedAssets = 'lib/generated/assets.dart';
+  static const String libHelp = 'lib/help';
   static const String libMain = 'lib/main.dart';
+  static const String libTheme = 'lib/theme.dart';
   static const String photoApple = 'lib/photo/Apple.png';
   static const String photoGoogle = 'lib/photo/Google.png';
   static const String screansCheak = 'lib/screans/Cheak.dart';
   static const String screansHomePage = 'lib/screans/home_page.dart';
   static const String screansLogin = 'lib/screans/login.dart';
   static const String screansRegister = 'lib/screans/register.dart';
+  static const String screansRegister2 = 'lib/screans/register_2.dart';
 
 }

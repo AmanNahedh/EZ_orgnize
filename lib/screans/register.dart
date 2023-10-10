@@ -1,4 +1,6 @@
 import 'package:ez_orgnize/General/textFormField.dart';
+import 'package:ez_orgnize/screans/register_2.dart';
+import 'package:ez_orgnize/General/BirthdayInputWidget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -14,8 +16,12 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   var scafoldKey = GlobalKey<FormState>();
 
+
+
   var emailCont = TextEditingController();
   var passCont = TextEditingController();
+  
+
 
   void _valdiate() async {
     final isValid = scafoldKey.currentState!.validate();
@@ -28,7 +34,7 @@ class _RegisterState extends State<Register> {
           email: emailCont.text, password: passCont.text);
 
       print(userCredintial);
-      Navigator.of(context).pop();
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterInfo(),));
     } on FirebaseAuthException catch (error) {
       if (error.code == 'email-already-in-use') {
         ScaffoldMessenger.of(context).clearSnackBars();
@@ -59,6 +65,7 @@ class _RegisterState extends State<Register> {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextForm(
                 controler: emailCont,
@@ -72,20 +79,24 @@ class _RegisterState extends State<Register> {
                   }
                 },
               ),
-              Divider(),
               TextForm(
-                  hint: 'Password',
-                  pass: true,
-                  controler: passCont,
-                  icon: Icon(Icons.password),
-                  valid: (value) {
-                    if (value.isEmpty) {
-                      return 'pls enter password';
-                    } else if (value.length < 6) {
-                      return 'pls make the password at least of 6 ';
-                    }
-                  }),
-              ElevatedButton(onPressed: _valdiate, child: Text('sign up')),
+                hint: 'Password',
+                pass: true,
+                controler: passCont,
+                icon: Icon(Icons.password),
+                valid: (value) {
+                  if (value.isEmpty) {
+                    return 'pls enter password';
+                  } else if (value.length < 6) {
+                    return 'pls make the password at least 6 ';
+                  }
+                },
+              ),
+              Divider(),
+              ElevatedButton(
+                onPressed: _valdiate,
+                child: Text('sign up'),
+              ),
             ],
           ),
         ),
