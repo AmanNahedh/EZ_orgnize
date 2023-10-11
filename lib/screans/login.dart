@@ -5,6 +5,8 @@ import 'package:ez_orgnize/screans/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'Forget_pass.dart';
+
 class LogIn extends StatefulWidget {
   LogIn({super.key});
 
@@ -55,7 +57,7 @@ class _LogInState extends State<LogIn> {
       context: context,
       builder: (context) {
         return const AlertDialog(
-          title: Text('wrong Email or password'),
+          title: Text('Wrong Email or Password'),
         );
       },
     );
@@ -125,9 +127,21 @@ class _LogInState extends State<LogIn> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(
-                        'Forgot Password?',
-                        style: TextStyle(color: Colors.grey[600]),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                           context,MaterialPageRoute(
+                            builder:(context){
+                             return Forget_pass();
+                          }
+                          )
+                          );
+                      },
+                        child: Text(
+                          'Forgot Password?',
+                          style: TextStyle(color: Colors.blue,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ],
                   ),
