@@ -21,7 +21,9 @@ class Assets {
   static const String screansCheak = 'lib/screans/Cheak.dart';
   static const String screansHomePage = 'lib/screans/home_page.dart';
   static const String screansLogin = 'lib/screans/login.dart';
+  static const String screansProfile = 'lib/screans/profile.dart';
   static const String screansRegister = 'lib/screans/register.dart';
   static const String screansRegister2 = 'lib/screans/register_2.dart';
+  static const String widgetNavBar = 'lib/widget/nav_bar.dart';
 
 }
