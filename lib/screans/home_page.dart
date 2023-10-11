@@ -26,7 +26,6 @@ class _home_pageState extends State<home_page> {
     });
   }
 
-  final user = FirebaseAuth.instance.currentUser;
 
   void signOut() {
     FirebaseAuth.instance.signOut();
