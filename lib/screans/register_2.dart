@@ -7,6 +7,7 @@ import 'package:ez_orgnize/General/city_picker.dart';
 import 'package:ez_orgnize/General/phone_number.dart';
 import 'package:ez_orgnize/General/textFormField.dart';
 import 'package:ez_orgnize/General/upload_image_to_firebase.dart';
+import 'package:ez_orgnize/screans/Cheak.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -34,7 +35,6 @@ class _RegisterInfoState extends State<RegisterInfo> {
 
     print(FirebaseAuth.instance.currentUser!.uid);
 
-
     await FirebaseFirestore.instance
         .collection('Users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -46,14 +46,17 @@ class _RegisterInfoState extends State<RegisterInfo> {
       "Nationality": selectedNationality,
       "TimeStamp": DateTime.now(),
     }).then((value) async {
-
       print('done');
       // Navigator.of(context).pop();
     });
     print('-------------------------------------------------------');
     print(selectedImage);
     await uploadImageToFirestore(selectedImage);
-    print('-------------------------------------------------------');
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => cheak(),
+      ),
+    );
   }
 
   //Nationality
@@ -85,7 +88,9 @@ class _RegisterInfoState extends State<RegisterInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Center(child: Text('Register')),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(12),
@@ -249,7 +254,15 @@ class _RegisterInfoState extends State<RegisterInfo> {
                 Divider(),
                 ElevatedButton(
                   onPressed: _valdiate,
-                  child: Text('savve iinfo'),
+                  child: Text('save iinfo'),
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.teal,
+                    backgroundColor: Theme.of(context).colorScheme.background,
+
+                    textStyle: TextStyle(fontSize: 16),
+
+                    padding: EdgeInsets.all(12), // Set the button padding
+                  ),
                 ),
               ],
             ),

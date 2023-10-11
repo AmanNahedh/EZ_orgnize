@@ -17,12 +17,12 @@ ThemeData getCustomAppTheme() {
       elevation: 0, systemOverlayStyle: SystemUiOverlayStyle.dark,
     ),
     textTheme: TextTheme(
-      headline6: TextStyle(
+      titleLarge: TextStyle(
         color: primaryColor,
         fontSize: 18,
         fontWeight: FontWeight.bold,
       ),
-      bodyText2: TextStyle(
+      bodyMedium: TextStyle(
         color: Colors.black87,
       ),
     ),

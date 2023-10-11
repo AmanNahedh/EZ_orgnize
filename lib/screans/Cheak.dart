@@ -1,5 +1,6 @@
 import 'package:ez_orgnize/screans/home_page.dart';
 import 'package:ez_orgnize/screans/login.dart';
+import 'package:ez_orgnize/widget/nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class cheak extends StatelessWidget{
 
               //Show home page
               if (snapshot.hasData){
-                return home_page();
+                return Main();
               }
               //show login page
               else{

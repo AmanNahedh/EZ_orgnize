@@ -1,6 +1,5 @@
 import 'package:ez_orgnize/General/textFormField.dart';
 import 'package:ez_orgnize/screans/register_2.dart';
-import 'package:ez_orgnize/General/BirthdayInputWidget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -16,12 +15,8 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   var scafoldKey = GlobalKey<FormState>();
 
-
-
   var emailCont = TextEditingController();
   var passCont = TextEditingController();
-  
-
 
   void _valdiate() async {
     final isValid = scafoldKey.currentState!.validate();
@@ -34,7 +29,9 @@ class _RegisterState extends State<Register> {
           email: emailCont.text, password: passCont.text);
 
       print(userCredintial);
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterInfo(),));
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => RegisterInfo(),
+      ));
     } on FirebaseAuthException catch (error) {
       if (error.code == 'email-already-in-use') {
         ScaffoldMessenger.of(context).clearSnackBars();
@@ -59,7 +56,9 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('Register'),
+      ),
       body: Form(
         key: scafoldKey,
         child: Padding(
