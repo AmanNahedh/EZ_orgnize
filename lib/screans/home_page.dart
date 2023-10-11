@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ez_orgnize/screans/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -16,28 +17,21 @@ class _home_pageState extends State<home_page> {
   var id = FirebaseAuth.instance.currentUser!.uid;
 
   void getUser() async {
-    var user = await FirebaseFirestore.instance.collection('Users').doc(id).get();
+    var user =
+        await FirebaseFirestore.instance.collection('Users').doc(id).get();
     setState(() {
       firstName = user.data()!['FirstName'];
       secondName = user.data()!['LastName'];
       image = user.data()!['url'];
-      print('-----------------------------');
-      print(image);
-      print('-----------------------------');
     });
   }
 
   final user = FirebaseAuth.instance.currentUser;
-  var index = 0;
 
   void signOut() {
     FirebaseAuth.instance.signOut();
   }
 
-  final bottom = [
-    BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-    BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-  ];
 
   @override
   void initState() {
@@ -60,12 +54,13 @@ class _home_pageState extends State<home_page> {
               child: ClipOval(
                 child: image.isEmpty
                     ? Center(
-                  child: CircularProgressIndicator(), // Show loading indicator
-                )
+                        child:
+                            CircularProgressIndicator(), // Show loading indicator
+                      )
                     : Image.network(
-                  image,
-                  fit: BoxFit.cover,
-                ),
+                        image,
+                        fit: BoxFit.cover,
+                      ),
               ),
             ),
             SizedBox(
@@ -82,13 +77,7 @@ class _home_pageState extends State<home_page> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: bottom,
-        currentIndex: index,
-        onTap: (value) => setState(() {
-          index = value;
-        }),
-      ),
+      body: Placeholder(),
     );
   }
 }
