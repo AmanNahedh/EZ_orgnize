@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../General/Text_Filled.dart';
@@ -5,7 +6,8 @@ import '../General/buttons.dart';
 
 
 class Forget_pass extends StatefulWidget {
-  const Forget_pass({super.key});
+  final Function()? onPressed;
+  const Forget_pass({super.key,required this.onPressed});
 
   @override
   State<Forget_pass> createState() => _Forget_passState();
@@ -13,6 +15,36 @@ class Forget_pass extends StatefulWidget {
 
 class _Forget_passState extends State<Forget_pass> {
   final emailController = TextEditingController();
+  @override
+  void dispose() {
+    emailController.dispose();
+    super.dispose();
+  }
+  Future PasswordReset() async{
+    try{
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: emailController.text.trim());
+      showDialog
+        (context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text("Password reset link sent , Cheack Your mail Box"),
+          );
+        },
+      );
+    }on FirebaseAuthException catch(c){
+      print(c);
+      showDialog
+        (context: context,
+          builder: (context) {
+          return AlertDialog(
+          content: Text(c.message.toString()),
+        );
+      },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,11 +75,14 @@ class _Forget_passState extends State<Forget_pass> {
         const SizedBox(
           height: 25,
         ),
-      button(
-        onTap: () {
-          Text("Forget Pass");
-        },
-      ),
+          //button(
+            //text: "Sign In",
+          //  onPressed: Forget_pass,
+          //),
+          ElevatedButton(
+            onPressed: PasswordReset,
+            child: Text('Reset Password'),
+          ),
 
 
       ],

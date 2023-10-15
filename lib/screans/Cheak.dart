@@ -21,7 +21,8 @@ class cheak extends StatelessWidget{
               }
               //show login page
               else{
-                return LogIn();
+                return LogIn(onPressed: () {  },);
+                //error
               }
             }
         )

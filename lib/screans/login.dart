@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'Forget_pass.dart';
 
 class LogIn extends StatefulWidget {
-  LogIn({super.key});
+final Function()? onPressed;
+const LogIn({super.key,required this.onPressed});
 
   @override
   State<LogIn> createState() => _LogInState();
@@ -21,7 +22,7 @@ class _LogInState extends State<LogIn> {
   final passwordController = TextEditingController();
 
   // sign user in method
-  void logIn(BuildContext context) async {
+  void logIn() async {
     //Loading
     showDialog(
       context: context,
@@ -130,13 +131,15 @@ class _LogInState extends State<LogIn> {
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
-                           context,MaterialPageRoute(
-                            builder:(context){
-                             return Forget_pass();
-                          }
+                              context, MaterialPageRoute(
+                              builder: (context) {
+                                return Forget_pass(onPressed: () {  },);
+
+                                //error
+                              }
                           )
                           );
-                      },
+                        },
                         child: Text(
                           'Forgot Password?',
                           style: TextStyle(color: Colors.blue,
@@ -150,9 +153,8 @@ class _LogInState extends State<LogIn> {
                 const SizedBox(height: 25),
                 //sign in button
                 button(
-                  onTap: () {
-                    logIn(context);
-                  },
+                  text: "Sign In",
+                  onPressed: logIn,
                 ),
                 const SizedBox(height: 20),
                 //not member
@@ -165,11 +167,12 @@ class _LogInState extends State<LogIn> {
                     ),
                     const SizedBox(width: 4),
                     TextButton(
-                      onPressed: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => Register(),
-                        ),
-                      ),
+                      onPressed: () =>
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => Register(),
+                            ),
+                          ),
                       child: Text('Register now'),
                     ),
                   ],
