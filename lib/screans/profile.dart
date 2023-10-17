@@ -1,147 +1,152 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ez_orgnize/modeals/usermodeal.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({super.key});
-
-  @override
-  State<Profile> createState() => _ProfileState();
-}
-
-class _ProfileState extends State<Profile> {
-  var firstName = '';
-  var secondName = '';
-  var image = '';
-  var id = FirebaseAuth.instance.currentUser!.uid;
-  var emal = FirebaseAuth.instance.currentUser!.email;
-
-  void getUser() async {
-    var user =
-        await FirebaseFirestore.instance.collection('Users').doc(id).get();
-    setState(() {
-      firstName = user.data()!['FirstName'];
-      secondName = user.data()!['LastName'];
-      image = user.data()!['url'];
-    });
-  }
-
-  @override
-  void initState() {
-    getUser();
-    super.initState();
-  }
+class Profile extends StatelessWidget {
+  const Profile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final id = FirebaseAuth.instance.currentUser!.uid;
+    final email = FirebaseAuth.instance.currentUser!.email;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('profile'),
+        title: Text('Profile'),
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 1,
-          ),
-          Center(
-            child: Container(
-              width: 150,
-              height: 150,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-              ),
-              child: ClipOval(
-                child: image.isEmpty
-                    ? Center(
-                        child:
-                            CircularProgressIndicator(), // Show loading indicator
-                      )
-                    : Image.network(
-                        image,
-                        fit: BoxFit.cover,
-                      ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Text(
-            '$firstName $secondName',
-            style: GoogleFonts.abhayaLibre().copyWith(fontSize: 50),
-          ),
-          Text(
-            '$emal',
-            style: GoogleFonts.abhayaLibre().copyWith(fontSize: 25),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+      body: FutureBuilder<DocumentSnapshot>(
+        future: FirebaseFirestore.instance.collection('Users').doc(id).get(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          if (snapshot.hasError) {
+            return Center(
+              child: Text('Error occurred while fetching user data'),
+            );
+          }
+
+          final user = UserModel.fromSnapshot(snapshot.data!.data() as Map<String, dynamic>);
+          final firstName = user.firstName ?? '';
+          final lastName = user.lastName ?? '';
+          final image = user.image ?? '';
+
+          return Column(
             children: [
-              Container(
-                height: 70,
-                width: 100,
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: Colors.teal),
-                    top: BorderSide(color: Colors.teal),
+              SizedBox(
+                height: 1,
+              ),
+              Center(
+                child: Container(
+                  width: 150,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                  ),
+                  child: ClipOval(
+                    child: image.isEmpty
+                        ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                        : Image.network(
+                      image,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('5'),
-                      Text(
-                        'work houer',
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                '$firstName $lastName',
+                style: GoogleFonts.abhayaLibre().copyWith(fontSize: 50),
+              ),
+              Text(
+                '$email',
+                style: GoogleFonts.abhayaLibre().copyWith(fontSize: 25),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 70,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(color: Colors.teal),
+                        top: BorderSide(color: Colors.teal),
                       ),
-                    ],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('5'),
+                          Text(
+                            'work hour',
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
+                  Container(
+                    height: 70,
+                    width: 80,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.teal),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [Text('5'), Text('rating')],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 70,
+                    width: 80,
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(color: Colors.teal),
+                        top: BorderSide(color: Colors.teal),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('5'),
+                          Text('events'),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              Container(
-                height: 70,
-                width: 80,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.teal),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Text('5'), Text('rating')],
-                  ),
-                ),
+              SizedBox(
+                height: 10,
               ),
-              Container(
-                height: 70,
-                width: 80,
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: Colors.teal),
-                    top: BorderSide(color: Colors.teal),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('5'),
-                      Text('events'),
-                    ],
-                  ),
-                ),
+              Divider(
+                thickness: 2,
+                endIndent: 40,
+                indent: 40,
+                color: Colors.teal[100],
               ),
             ],
-          ),
-          SizedBox(height: 10,),
-          Divider(thickness: 2,endIndent: 40,indent: 40, color: Colors.teal[100],),
-        ],
+          );
+        },
       ),
     );
   }
