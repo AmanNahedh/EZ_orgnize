@@ -2,6 +2,9 @@
 class Assets {
   Assets._();
 
+  static const String adminHomePageAdmin = 'lib/screans/admin/home_page_admin.dart';
+  static const String adminNavBarAdmin = 'lib/screans/admin/nav_bar_admin.dart';
+  static const String fireBaseCheak = 'lib/fire_base/Cheak.dart';
   static const String fireBaseFirebaseOptions = 'lib/fire_base/firebase_options.dart';
   static const String generalBirthdayInputWidget = 'lib/General/BirthdayInputWidget.dart';
   static const String generalButtons = 'lib/General/buttons.dart';
@@ -18,8 +21,8 @@ class Assets {
   static const String libTheme = 'lib/theme.dart';
   static const String photoApple = 'lib/photo/Apple.png';
   static const String photoGoogle = 'lib/photo/Google.png';
-  static const String screansCheak = 'lib/screans/Cheak.dart';
-  static const String screansHomePage = 'lib/screans/home_page.dart';
+  static const String screansForgetPass = 'lib/screans/Forget_pass.dart';
+  static const String screansHomePageUseer = 'lib/screans/home_page_useer.dart';
   static const String screansLogin = 'lib/screans/login.dart';
   static const String screansProfile = 'lib/screans/profile.dart';
   static const String screansRegister = 'lib/screans/register.dart';

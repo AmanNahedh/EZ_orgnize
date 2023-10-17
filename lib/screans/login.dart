@@ -1,6 +1,6 @@
 import 'package:ez_orgnize/General/Text_Filled.dart';
 import 'package:ez_orgnize/General/buttons.dart';
-import 'package:ez_orgnize/screans/Cheak.dart';
+import 'package:ez_orgnize/fire_base/Cheak.dart';
 import 'package:ez_orgnize/screans/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

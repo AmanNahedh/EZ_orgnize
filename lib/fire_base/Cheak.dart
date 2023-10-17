@@ -1,4 +1,4 @@
-import 'package:ez_orgnize/screans/home_page.dart';
+import 'package:ez_orgnize/screans/home_page_useer.dart';
 import 'package:ez_orgnize/screans/login.dart';
 import 'package:ez_orgnize/widget/nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';

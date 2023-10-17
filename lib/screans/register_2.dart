@@ -7,7 +7,7 @@ import 'package:ez_orgnize/General/city_picker.dart';
 import 'package:ez_orgnize/General/phone_number.dart';
 import 'package:ez_orgnize/General/textFormField.dart';
 import 'package:ez_orgnize/General/upload_image_to_firebase.dart';
-import 'package:ez_orgnize/screans/Cheak.dart';
+import 'package:ez_orgnize/fire_base/Cheak.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -45,6 +45,7 @@ class _RegisterInfoState extends State<RegisterInfo> {
       "City": city.toString(),
       "Nationality": selectedNationality,
       "TimeStamp": DateTime.now(),
+      "Validity" : "organizer"
     }).then((value) async {
       print('done');
       // Navigator.of(context).pop();

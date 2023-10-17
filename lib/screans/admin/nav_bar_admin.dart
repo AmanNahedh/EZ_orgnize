@@ -2,14 +2,14 @@ import 'package:ez_orgnize/screans/home_page_useer.dart';
 import 'package:ez_orgnize/screans/profile.dart';
 import 'package:flutter/material.dart';
 
-class Main extends StatefulWidget {
-  const Main({super.key});
+class NavBarAdmin extends StatefulWidget {
+  const NavBarAdmin({super.key});
 
   @override
-  State<Main> createState() => _MainState();
+  State<NavBarAdmin> createState() => _NavBarAdminState();
 }
 
-class _MainState extends State<Main> {
+class _NavBarAdminState extends State<NavBarAdmin> {
 
 
 

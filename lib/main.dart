@@ -1,5 +1,5 @@
 import 'package:ez_orgnize/fire_base/firebase_options.dart';
-import 'package:ez_orgnize/screans/Cheak.dart';
+import 'package:ez_orgnize/fire_base/Cheak.dart';
 import 'package:ez_orgnize/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
