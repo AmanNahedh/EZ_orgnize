@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ez_orgnize/screans/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -26,11 +25,9 @@ class _home_pageState extends State<home_page> {
     });
   }
 
-
   void signOut() {
     FirebaseAuth.instance.signOut();
   }
-
 
   @override
   void initState() {

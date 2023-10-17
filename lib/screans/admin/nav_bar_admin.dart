@@ -1,3 +1,4 @@
+import 'package:ez_orgnize/screans/admin/home_page_admin.dart';
 import 'package:ez_orgnize/screans/home_page_useer.dart';
 import 'package:ez_orgnize/screans/profile.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +11,6 @@ class NavBarAdmin extends StatefulWidget {
 }
 
 class _NavBarAdminState extends State<NavBarAdmin> {
-
-
-
   var index = 0;
 
   final bottom = [
@@ -21,7 +19,7 @@ class _NavBarAdminState extends State<NavBarAdmin> {
     BottomNavigationBarItem(icon: Icon(Icons.person), label: 'profile'),
   ];
   final List<Widget> screens = [
-    home_page(), // Replace with the appropriate widget for your home page
+    HomePageAdmin(), // Replace with the appropriate widget for your home page
     home_page(), // Replace with the appropriate widget for the second item
     Profile(),
   ];

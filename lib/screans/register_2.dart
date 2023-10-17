@@ -45,7 +45,9 @@ class _RegisterInfoState extends State<RegisterInfo> {
       "City": city.toString(),
       "Nationality": selectedNationality,
       "TimeStamp": DateTime.now(),
-      "Validity" : "organizer"
+      "Validity": "organizer",
+      "tallCont": tallCont,
+      "weightCont": weightCont,
     }).then((value) async {
       print('done');
       // Navigator.of(context).pop();
