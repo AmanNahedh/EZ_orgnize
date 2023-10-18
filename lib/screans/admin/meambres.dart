@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ez_orgnize/modeals/usermodeal.dart';
+import 'package:ez_orgnize/screans/admin/member_profile.dart';
 import 'package:flutter/material.dart';
 
 class Meambers extends StatefulWidget {
@@ -20,8 +21,19 @@ class _MeambersState extends State<Meambers> {
   }
 
   Future<void> fetchMembers() async {
-    final snapshot = await FirebaseFirestore.instance.collection('Users').get();
-    final members = snapshot.docs.map((doc) => UserModel.fromSnapshot(doc.data() as Map<String, dynamic>)).toList();
+    final snapshot = await FirebaseFirestore.instance
+        .collection('Users')
+        .where("Validity", isEqualTo: "organizer")
+        .get();
+    final members = snapshot.docs.map((doc) {
+      final data = doc.data();
+      if (data != null) {
+        data['id'] = doc.id;
+        return UserModel.fromSnapshot(data as Map<String, dynamic>);
+      } else {
+        return null;
+      }
+    }).whereType<UserModel>().toList();
     setState(() {
       allMembers = members;
       displayedMembers = members;
@@ -65,6 +77,11 @@ class _MeambersState extends State<Meambers> {
               itemBuilder: (context, index) {
                 final member = displayedMembers[index];
                 return ListTile(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => MemberProfile(id: member.id,),
+                    ),
+                  ),
                   title: Text('${member.firstName} ${member.lastName}'),
                   subtitle: Text(member.phoneNumber ?? ''),
                 );
