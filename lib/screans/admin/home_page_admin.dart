@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ez_orgnize/screans/admin/add_event.dart';
 import 'package:ez_orgnize/screans/admin/meambres.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -47,12 +48,12 @@ class HomePageAdmin extends StatelessWidget {
                   child: ClipOval(
                     child: image.isEmpty
                         ? Center(
-                      child: CircularProgressIndicator(),
-                    )
+                            child: CircularProgressIndicator(),
+                          )
                         : Image.network(
-                      image,
-                      fit: BoxFit.cover,
-                    ),
+                            image,
+                            fit: BoxFit.cover,
+                          ),
                   ),
                 ),
                 SizedBox(
@@ -83,6 +84,13 @@ class HomePageAdmin extends StatelessWidget {
                   builder: (context) => Meambers(),
                 ),
               ),
+            ),
+            ListTile(
+              title: Text('Add event'),
+              leading: Icon(Icons.event),
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => AddEventPage(),
+              )),
             ),
           ],
         ),

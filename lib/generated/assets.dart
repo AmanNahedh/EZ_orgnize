@@ -2,8 +2,10 @@
 class Assets {
   Assets._();
 
+  static const String adminAddEvent = 'lib/screans/admin/add_event.dart';
   static const String adminHomePageAdmin = 'lib/screans/admin/home_page_admin.dart';
   static const String adminMeambres = 'lib/screans/admin/meambres.dart';
+  static const String adminMemberProfile = 'lib/screans/admin/member_profile.dart';
   static const String adminNavBarAdmin = 'lib/screans/admin/nav_bar_admin.dart';
   static const String fireBaseCheak = 'lib/fire_base/Cheak.dart';
   static const String fireBaseFirebaseOptions = 'lib/fire_base/firebase_options.dart';

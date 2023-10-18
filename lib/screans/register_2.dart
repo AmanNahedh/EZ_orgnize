@@ -11,6 +11,9 @@ import 'package:ez_orgnize/fire_base/Cheak.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
+
+var uuid = Uuid();
 
 class RegisterInfo extends StatefulWidget {
   final Function(String)? onNationalitySelected;
@@ -35,6 +38,7 @@ class _RegisterInfoState extends State<RegisterInfo> {
 
     print(FirebaseAuth.instance.currentUser!.uid);
 
+    print("---------------------------------");
     await FirebaseFirestore.instance
         .collection('Users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -46,11 +50,12 @@ class _RegisterInfoState extends State<RegisterInfo> {
       "Nationality": selectedNationality,
       "TimeStamp": DateTime.now(),
       "Validity": "organizer",
-      "tallCont": tallCont,
-      "weightCont": weightCont,
+      "tallCont": tallCont.text,
+      "weightCont": weightCont.text,
+
     }).then((value) async {
       print('done');
-      // Navigator.of(context).pop();
+
     });
     print('-------------------------------------------------------');
     print(selectedImage);
@@ -87,6 +92,15 @@ class _RegisterInfoState extends State<RegisterInfo> {
 
   var phone = '';
   var city = 'Riyadh';
+
+  @override
+  void dispose() {
+    firstNameCont.dispose();
+    lastNameCont.dispose();
+    tallCont.dispose();
+    weightCont.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

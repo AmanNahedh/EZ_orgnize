@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
+  final String? id;
   final String? firstName;
   final String? lastName;
   final String? tallCont;
@@ -11,6 +12,7 @@ class UserModel {
   final String? image;
 
   UserModel({
+    this.id,
     this.firstName,
     this.lastName,
     this.tallCont,
@@ -31,6 +33,7 @@ class UserModel {
       "phoneNumber": phoneNumber,
       "validity": validity,
       "image": image,
+      "id" : id,
     };
   }
 
@@ -44,6 +47,7 @@ class UserModel {
       phoneNumber: snapshot['PhoneNumber'],
       validity: snapshot['validity'],
       image: snapshot['url'],
+      id: snapshot['id'],
     );
   }
 }
