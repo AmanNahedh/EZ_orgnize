@@ -3,6 +3,7 @@ class Assets {
   Assets._();
 
   static const String adminAddEvent = 'lib/screans/admin/add_event.dart';
+  static const String adminEvents = 'lib/screans/admin/events.dart';
   static const String adminHomePageAdmin = 'lib/screans/admin/home_page_admin.dart';
   static const String adminMeambres = 'lib/screans/admin/meambres.dart';
   static const String adminMemberProfile = 'lib/screans/admin/member_profile.dart';
@@ -12,6 +13,7 @@ class Assets {
   static const String generalBirthdayInputWidget = 'lib/General/BirthdayInputWidget.dart';
   static const String generalButtons = 'lib/General/buttons.dart';
   static const String generalCityPicker = 'lib/General/city_picker.dart';
+  static const String generalEventPost = 'lib/General/eventPost.dart';
   static const String generalImagePicker = 'lib/General/image_picker.dart';
   static const String generalPhoneNumber = 'lib/General/phone_number.dart';
   static const String generalSqeTitle = 'lib/General/Sqe_Title.dart';
@@ -21,7 +23,9 @@ class Assets {
   static const String generatedAssets = 'lib/generated/assets.dart';
   static const String libHelp = 'lib/help';
   static const String libMain = 'lib/main.dart';
+  static const String libPhotoApple = 'lib/photo/Apple.png';
   static const String libTheme = 'lib/theme.dart';
+  static const String modealsEventModel = 'lib/modeals/event_model.dart';
   static const String modealsUsermodeal = 'lib/modeals/usermodeal.dart';
   static const String photoApple = 'lib/photo/Apple.png';
   static const String photoGoogle = 'lib/photo/Google.png';

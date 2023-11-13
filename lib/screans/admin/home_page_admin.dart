@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ez_orgnize/screans/admin/add_event.dart';
+import 'package:ez_orgnize/screans/admin/events.dart';
 import 'package:ez_orgnize/screans/admin/meambres.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -92,6 +93,16 @@ class HomePageAdmin extends StatelessWidget {
                 builder: (context) => AddEventPage(),
               )),
             ),
+            ListTile(
+              title: Text('Events'),
+              leading: Icon(Icons.event_available_sharp),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => Events(),
+                ),
+              ),
+            ),
+
           ],
         ),
       ),

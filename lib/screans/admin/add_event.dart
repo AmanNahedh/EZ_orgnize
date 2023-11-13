@@ -1,11 +1,17 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ez_orgnize/screans/admin/home_page_admin.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class AddEventPage extends StatefulWidget {
   @override
   _AddEventPageState createState() => _AddEventPageState();
 }
-//note
+
 class _AddEventPageState extends State<AddEventPage> {
   DateTime selectedDate = DateTime.now();
   final _eventNameController = TextEditingController();
@@ -13,6 +19,9 @@ class _AddEventPageState extends State<AddEventPage> {
   final _eventDetailsController = TextEditingController();
   final _maleOrganizersController = TextEditingController();
   final _femaleOrganizersController = TextEditingController();
+  var selectedImage;
+  bool editMode = false;
+  String editModeImageURL = '';
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -28,6 +37,21 @@ class _AddEventPageState extends State<AddEventPage> {
     }
   }
 
+  TimeOfDay? selectedTime;
+
+  Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+
+    if (pickedTime != null && pickedTime != selectedTime) {
+      setState(() {
+        selectedTime = pickedTime;
+      });
+    }
+  }
+
   @override
   void dispose() {
     _eventNameController.dispose();
@@ -36,6 +60,81 @@ class _AddEventPageState extends State<AddEventPage> {
     _maleOrganizersController.dispose();
     _femaleOrganizersController.dispose();
     super.dispose();
+  }
+
+  Future<void> _addEventToFirestore() async {
+    final eventName = _eventNameController.text;
+    final eventLocation = _eventLocationController.text;
+    final eventDetails = _eventDetailsController.text;
+    final maleOrganizers = int.parse(_maleOrganizersController.text);
+    final femaleOrganizers = int.parse(_femaleOrganizersController.text);
+
+    try {
+      // Upload the image to Firebase Storage
+      String imageUrl = '';
+      if (selectedImage != null) {
+        final storageRef = FirebaseStorage.instance.ref().child(eventName);
+        await storageRef.putFile(selectedImage!);
+        imageUrl = await storageRef.getDownloadURL();
+      }
+
+      await FirebaseFirestore.instance.collection('events').doc(eventName).set({
+        'eventName': eventName,
+        'eventDate': selectedDate,
+        'eventTime': selectedTime?.format(context),
+        'eventLocation': eventLocation,
+        'eventDetails': eventDetails,
+        'maleOrganizers': maleOrganizers,
+        'femaleOrganizers': femaleOrganizers,
+        'imageUrl': imageUrl,
+      });
+
+      // Reset the form after successful submission
+      _eventNameController.clear();
+      _eventLocationController.clear();
+      _eventDetailsController.clear();
+      _maleOrganizersController.clear();
+      _femaleOrganizersController.clear();
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Success'),
+            content: Text('Event added successfully!'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => HomePageAdmin(),
+                  ));
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    } catch (e) {
+      print(e);
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Failed to add event. Please try again.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   @override
@@ -63,9 +162,8 @@ class _AddEventPageState extends State<AddEventPage> {
                   onTap: () => _selectDate(context),
                   child: Container(
                     padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      border: Border.all()
-                    ),
+                    decoration:
+                        BoxDecoration(border: Border.all(color: Colors.grey)),
                     child: Row(
                       children: [
                         Icon(Icons.calendar_today),
@@ -78,6 +176,24 @@ class _AddEventPageState extends State<AddEventPage> {
                   ),
                 ),
                 SizedBox(height: 16.0),
+                GestureDetector(
+                  onTap: () => _selectTime(context),
+                  child: Container(
+                    padding: EdgeInsets.all(8),
+                    decoration:
+                        BoxDecoration(border: Border.all(color: Colors.grey)),
+                    child: Row(
+                      children: [
+                        Icon(Icons.watch_later_outlined),
+                        SizedBox(width: 8.0),
+                        Text(
+                          'Selected Time: ${selectedTime?.format(context) ?? 'Not selected'}',
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
                 TextFormField(
                   controller: _eventLocationController,
                   decoration: InputDecoration(
@@ -131,10 +247,62 @@ class _AddEventPageState extends State<AddEventPage> {
                   ],
                 ),
                 SizedBox(height: 16.0),
+                Visibility(
+                  visible: editMode,
+                  child: Container(
+                    height: 150,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(6),
+                        image: DecorationImage(
+                            image: NetworkImage(editModeImageURL))),
+                  ),
+                  replacement: GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: ((builder) => bottomSheet()),
+                      );
+                    },
+                    child: selectedImage != null
+                        ? Container(
+                            height: 150,
+                            width: MediaQuery.of(context).size.width,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(6),
+                              child: Image.file(
+                                selectedImage as File,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          )
+                        : Container(
+                            // margin: EdgeInsets.symmetric(horizontal: 50),
+                            height: 150,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(
+                                  color: Colors.teal,
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(6)),
+                            width: MediaQuery.of(context).size.width,
+                            child: Column(
+                              children: [
+                                SizedBox(height: 30),
+                                Icon(Icons.account_box, size: 50.0),
+                                Text(
+                                  'Upload your photo',
+                                  style: TextStyle(),
+                                ),
+                              ],
+                            ),
+                          ),
+                  ),
+                ),
+                SizedBox(height: 16.0),
                 ElevatedButton(
-                  onPressed: () {
-                    // Add event logic here
-                  },
+                  onPressed: _addEventToFirestore,
                   child: Text('Add Event'),
                 ),
               ],
@@ -143,5 +311,65 @@ class _AddEventPageState extends State<AddEventPage> {
         ),
       ),
     );
+  }
+
+  Widget bottomSheet() {
+    return Container(
+      height: 100.0,
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.symmetric(
+        horizontal: 95,
+        vertical: 20,
+      ),
+      child: Column(
+        children: <Widget>[
+          Text(
+            "",
+            style: TextStyle(
+              fontSize: 20.0,
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                TextButton.icon(
+                  icon: Icon(Icons.camera,
+                      color: Theme.of(context).iconTheme.color),
+                  onPressed: () {
+                    getImage(ImageSource.camera);
+                  },
+                  label: Text(
+                    "Camera",
+                    style: TextStyle(color: Colors.teal),
+                  ),
+                ),
+                Spacer(),
+                TextButton.icon(
+                  icon: Icon(Icons.image,
+                      color: Theme.of(context).iconTheme.color),
+                  onPressed: () {
+                    getImage(ImageSource.gallery);
+                  },
+                  label: Text(
+                    "Gallery",
+                    style: TextStyle(color: Colors.teal),
+                  ),
+                ),
+              ])
+        ],
+      ),
+    );
+  }
+
+  Future getImage(ImageSource source) async {
+    var image = await ImagePicker.platform
+        .getImageFromSource(source: source); //pickImage
+    print('printing source of image $source');
+    setState(() {
+      selectedImage = File(image!.path);
+    });
   }
 }
