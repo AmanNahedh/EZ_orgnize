@@ -15,7 +15,7 @@ Future<void> uploadImageToFirestore(File imageFile) async {
 
     // Create a reference to the Firebase Storage location
     final Reference storageReference =
-    FirebaseStorage.instance.ref().child('images/$fileName');
+    FirebaseStorage.instance.ref().child('images/profilePic/$fileName');
 
     // Upload the file to Firebase Storage
     final UploadTask uploadTask = storageReference.putFile(imageFile);
