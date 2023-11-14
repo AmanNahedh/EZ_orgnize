@@ -20,7 +20,7 @@ class _NavBarAdminState extends State<NavBarAdmin> {
   ];
   final List<Widget> screens = [
     HomePageAdmin(), // Replace with the appropriate widget for your home page
-    home_page(), // Replace with the appropriate widget for the second item
+    HomePageMember(), // Replace with the appropriate widget for the second item
     Profile(),
   ];
 

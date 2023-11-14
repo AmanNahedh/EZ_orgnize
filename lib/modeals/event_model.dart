@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Event {
   final String eventName;
   final DateTime eventDate;
@@ -30,5 +32,17 @@ class Event {
       femaleOrganizers: map['femaleOrganizers'],
       imageUrl: map['imageUrl'],
     );
+  }
+
+  Future<void> createApllayingDocument(male, female) async {
+    await FirebaseFirestore.instance
+        .collection('events')
+        .doc(eventName)
+        .collection('Apllaying')
+        .doc('Apllaying')
+        .set({
+      'male': male,
+      'female': female,
+    });
   }
 }

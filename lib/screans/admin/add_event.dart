@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ez_orgnize/screans/admin/home_page_admin.dart';
+import 'package:ez_orgnize/fire_base/Cheak.dart';
+import 'package:ez_orgnize/screans/admin/nav_bar_admin.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -22,6 +23,7 @@ class _AddEventPageState extends State<AddEventPage> {
   var selectedImage;
   bool editMode = false;
   String editModeImageURL = '';
+  bool isUploading = false;
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -69,11 +71,16 @@ class _AddEventPageState extends State<AddEventPage> {
     final maleOrganizers = int.parse(_maleOrganizersController.text);
     final femaleOrganizers = int.parse(_femaleOrganizersController.text);
 
+    setState(() {
+      isUploading = true;
+    });
+
     try {
       // Upload the image to Firebase Storage
       String imageUrl = '';
       if (selectedImage != null) {
-        final storageRef = FirebaseStorage.instance.ref().child(eventName);
+        final storageRef =
+            FirebaseStorage.instance.ref().child('images/events/$eventName');
         await storageRef.putFile(selectedImage!);
         imageUrl = await storageRef.getDownloadURL();
       }
@@ -87,6 +94,15 @@ class _AddEventPageState extends State<AddEventPage> {
         'maleOrganizers': maleOrganizers,
         'femaleOrganizers': femaleOrganizers,
         'imageUrl': imageUrl,
+      });
+      await FirebaseFirestore.instance
+          .collection('events')
+          .doc(eventName)
+          .collection('Apllaying')
+          .doc('Apllaying')
+          .set({
+        'male': [],
+        'female': [],
       });
 
       // Reset the form after successful submission
@@ -106,7 +122,7 @@ class _AddEventPageState extends State<AddEventPage> {
               TextButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => HomePageAdmin(),
+                    builder: (context) => cheak(),
                   ));
                 },
                 child: Text('OK'),
@@ -134,6 +150,10 @@ class _AddEventPageState extends State<AddEventPage> {
           );
         },
       );
+    } finally {
+      setState(() {
+        isUploading = false;
+      });
     }
   }
 
@@ -302,8 +322,16 @@ class _AddEventPageState extends State<AddEventPage> {
                 ),
                 SizedBox(height: 16.0),
                 ElevatedButton(
-                  onPressed: _addEventToFirestore,
-                  child: Text('Add Event'),
+                  onPressed: isUploading ? null : _addEventToFirestore,
+                  child: isUploading
+                      ? CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white),
+                        )
+                      : Text(
+                          'Add Event',
+                          style: TextStyle(color: Colors.white),
+                        ),
                 ),
               ],
             ),

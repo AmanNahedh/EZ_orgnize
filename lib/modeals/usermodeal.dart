@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class UserModel {
   final String? id;
@@ -23,7 +24,7 @@ class UserModel {
     this.image,
   });
 
-  Map<String, dynamic> toJson([DocumentSnapshot<Map<String, dynamic>>? user]) {
+  Map<String, dynamic> toJson() {
     return {
       "firstName": firstName,
       "lastName": lastName,
@@ -33,7 +34,7 @@ class UserModel {
       "phoneNumber": phoneNumber,
       "validity": validity,
       "image": image,
-      "id" : id,
+      "id": id,
     };
   }
 
@@ -41,13 +42,37 @@ class UserModel {
     return UserModel(
       firstName: snapshot['FirstName'],
       lastName: snapshot['LastName'],
-      tallCont: snapshot['allCont'],
+      tallCont: snapshot['tallCont'],
       weightCont: snapshot['weightCont'],
       nationality: snapshot['Nationality'],
       phoneNumber: snapshot['PhoneNumber'],
-      validity: snapshot['validity'],
+      validity: snapshot['Validity'],
       image: snapshot['url'],
       id: snapshot['id'],
     );
+  }
+
+  Future<UserModel?> getCurrentUserInfo() async {
+    try {
+      DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+          .instance
+          .collection('Users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
+
+      if (snapshot.exists) {
+        Map<String, dynamic> userData = snapshot.data()!;
+        UserModel currentUser = UserModel.fromSnapshot(userData);
+        print('Inside getCurrentUserInfo');
+        print(currentUser.firstName);
+        return currentUser;
+      } else {
+        print('User document does not exist');
+        return null;
+      }
+    } catch (e) {
+      print('Error retrieving current user info: $e');
+      return null;
+    }
   }
 }

@@ -43,7 +43,7 @@ class _cheakState extends State<cheak> {
             if (Validity == 'admin') {
               return NavBarAdmin();
             } else
-              return Main();
+              return NavBarMember();
           }
           //show login page
           else {

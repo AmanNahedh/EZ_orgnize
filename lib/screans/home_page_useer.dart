@@ -1,15 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ez_orgnize/fire_base/Cheak.dart';
+import 'package:ez_orgnize/screans/event_member.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class home_page extends StatefulWidget {
-  home_page({Key? key});
+class HomePageMember extends StatefulWidget {
+  HomePageMember({Key? key});
 
   @override
-  State<home_page> createState() => _home_pageState();
+  State<HomePageMember> createState() => _HomePageMemberState();
 }
 
-class _home_pageState extends State<home_page> {
+class _HomePageMemberState extends State<HomePageMember> {
   var firstName = '';
   var secondName = '';
   var image = '';
@@ -27,6 +29,11 @@ class _home_pageState extends State<home_page> {
 
   void signOut() {
     FirebaseAuth.instance.signOut();
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => cheak(),
+      ),
+    );
   }
 
   @override
@@ -73,7 +80,21 @@ class _home_pageState extends State<home_page> {
           ),
         ],
       ),
-      body: Placeholder(),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            ListTile(
+              title: Text('events'),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => EventMember(),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
