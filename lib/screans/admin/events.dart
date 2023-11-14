@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import  'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ez_orgnize/General/eventPost.dart';
 import 'package:ez_orgnize/modeals/event_model.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +15,7 @@ class _EventsState extends State<Events> {
   late List<Event> events;
   bool _isLoading = true;
   Event? selectedEvent;
-//a
+
   @override
   void initState() {
     super.initState();

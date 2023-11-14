@@ -29,6 +29,8 @@ class Assets {
   static const String modealsUsermodeal = 'lib/modeals/usermodeal.dart';
   static const String photoApple = 'lib/photo/Apple.png';
   static const String photoGoogle = 'lib/photo/Google.png';
+  static const String screansEventDetailsMember = 'lib/screans/event_details_member.dart';
+  static const String screansEventMember = 'lib/screans/event_member.dart';
   static const String screansForgetPass = 'lib/screans/Forget_pass.dart';
   static const String screansHomePageUseer = 'lib/screans/home_page_useer.dart';
   static const String screansLogin = 'lib/screans/login.dart';
