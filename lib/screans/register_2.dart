@@ -52,10 +52,9 @@ class _RegisterInfoState extends State<RegisterInfo> {
       "Validity": "organizer",
       "tallCont": tallCont.text,
       "weightCont": weightCont.text,
-
+      "id": FirebaseAuth.instance.currentUser!.uid,
     }).then((value) async {
       print('done');
-
     });
     print('-------------------------------------------------------');
     print(selectedImage);

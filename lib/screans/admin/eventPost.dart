@@ -1,4 +1,5 @@
 import 'package:ez_orgnize/modeals/event_model.dart';
+import 'package:ez_orgnize/screans/admin/applayed_members.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -65,10 +66,12 @@ class EventDetailsPage extends StatelessWidget {
             ),
             SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {
-                // Handle button click event
-              },
-              child: Text('RSVP'),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ApplayedMemebers(event: event),
+                ),
+              ),
+              child: Text('Show applayed'),
             ),
           ],
         ),
