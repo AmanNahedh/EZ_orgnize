@@ -75,4 +75,29 @@ class UserModel {
       return null;
     }
   }
+
+  Future<List<UserModel>> fetchAppliedMembersData(
+      List<String> appliedMembers, List<UserModel> appliedMembersData) async {
+    try {
+      final CollectionReference<Map<String, dynamic>> usersCollection =
+          FirebaseFirestore.instance.collection('Users');
+
+      for (final memberId in appliedMembers) {
+        final DocumentSnapshot<Map<String, dynamic>> snapshot =
+            await usersCollection.doc(memberId).get();
+
+        if (snapshot.exists) {
+          final Map<String, dynamic> userData = snapshot.data()!;
+          final UserModel user = UserModel.fromSnapshot(userData);
+          appliedMembersData.add(user);
+        }
+      }
+
+      print('${appliedMembersData.length} hereeee');
+      return appliedMembersData;
+    } catch (e) {
+      print('Error fetching applied members data: $e');
+      return [];
+    }
+  }
 }

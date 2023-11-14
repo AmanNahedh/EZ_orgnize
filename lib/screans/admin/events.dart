@@ -1,5 +1,5 @@
 import  'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ez_orgnize/General/eventPost.dart';
+import 'package:ez_orgnize/screans/admin/eventPost.dart';
 import 'package:ez_orgnize/modeals/event_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
