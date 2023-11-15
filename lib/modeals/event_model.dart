@@ -6,7 +6,9 @@ class Event {
   final String eventTime;
   final String eventLocation;
   final String eventDetails;
+  final int maleCounter;
   final int maleOrganizers;
+  final int femaleCounter;
   final int femaleOrganizers;
   final String imageUrl;
 
@@ -16,7 +18,9 @@ class Event {
     required this.eventTime,
     required this.eventLocation,
     required this.eventDetails,
+    required this.maleCounter,
     required this.maleOrganizers,
+    required this.femaleCounter,
     required this.femaleOrganizers,
     required this.imageUrl,
   });
@@ -28,21 +32,12 @@ class Event {
       eventTime: map['eventTime'],
       eventLocation: map['eventLocation'],
       eventDetails: map['eventDetails'],
+      maleCounter: map['maleCounter'],
       maleOrganizers: map['maleOrganizers'],
+      femaleCounter: map['femaleCounter'],
       femaleOrganizers: map['femaleOrganizers'],
       imageUrl: map['imageUrl'],
     );
   }
 
-  Future<void> createApllayingDocument(male, female) async {
-    await FirebaseFirestore.instance
-        .collection('events')
-        .doc(eventName)
-        .collection('Apllaying')
-        .doc('Apllaying')
-        .set({
-      'male': male,
-      'female': female,
-    });
-  }
 }

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class UserModel {
+  final String? gender;
   final String? id;
   final String? firstName;
   final String? lastName;
@@ -13,6 +14,7 @@ class UserModel {
   final String? image;
 
   UserModel({
+    this.gender,
     this.id,
     this.firstName,
     this.lastName,
@@ -26,6 +28,7 @@ class UserModel {
 
   Map<String, dynamic> toJson() {
     return {
+      "gender": gender,
       "firstName": firstName,
       "lastName": lastName,
       "tallCont": tallCont,
@@ -40,6 +43,7 @@ class UserModel {
 
   factory UserModel.fromSnapshot(Map<String, dynamic> snapshot) {
     return UserModel(
+      gender: snapshot['gender'],
       firstName: snapshot['FirstName'],
       lastName: snapshot['LastName'],
       tallCont: snapshot['tallCont'],

@@ -18,58 +18,134 @@ class _EventDetailsMemberState extends State<EventDetailsMember> {
   List<String> male = [];
   List<String> female = [];
   UserModel? curent;
+  var femaleCounter = 0;
+  var maleCounter = 0;
+  var applayed = false;
+
+  var isLoading = true;
 
   void getApplaying() async {
+    print(widget.event.eventName);
     setState(() {
+      maleCounter = 0;
       male.clear();
+      femaleCounter = 0;
+      female.clear();
     });
+
     // Retrieve the existing data from Firestore
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection('events')
-        .doc('male female')
-        .collection('Apllaying')
-        .doc('Apllaying')
+        .doc(widget.event.eventName)
         .get();
 
     if (snapshot.exists) {
-      setState(() {
-        male = List<String>.from(snapshot.get('male'));
-      });
+      Map<String, dynamic>? data =
+          await snapshot.data() as Map<String, dynamic>?;
+      if (data != null) {
+        setState(() {
+          male = List<String>.from(data['maleAccept'] ?? []);
+          female = List<String>.from(data['femaleAccept'] ?? []);
+          maleCounter = male.length;
+          femaleCounter = female.length;
+          checkApplayed();
+        });
+      }
     }
 
-    print(male.length);
-  }
-
-  void getCurentUSer() {
-    UserModel info = UserModel();
-    info.getCurrentUserInfo();
+    // Simulate a loading delay of 2 seconds
+    await Future.delayed(Duration(milliseconds: 1));
     setState(() {
-      curent = info;
+      isLoading = false;
     });
   }
 
-// Rest of the code...
+  Future<UserModel?> getCurrentUserInfo() async {
+    try {
+      DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+          .instance
+          .collection('Users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
+
+      if (snapshot.exists) {
+        Map<String, dynamic> userData = snapshot.data()!;
+        curent = UserModel.fromSnapshot(userData);
+      } else {
+        print('User document does not exist');
+        return curent; // Return the provided currentUser object if the document does not exist
+      }
+    } catch (e) {
+      print('Error retrieving current user info: $e');
+      return curent; // Return the provided currentUser object in case of an error
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    getApplaying(); // Add this line to retrieve the current user
-    getCurentUSer();
+    getApplaying();
+    getCurrentUserInfo();
+    checkApplayed();
+  }
+
+  void checkApplayed() {
+    if (male.contains(FirebaseAuth.instance.currentUser!.uid) ||
+        female.contains(FirebaseAuth.instance.currentUser!.uid)) {
+      setState(() {
+        applayed = true;
+      });
+    }
   }
 
   void applyToEvent() async {
-    setState(() {
-      male.add(FirebaseAuth.instance.currentUser!.uid);
-    });
-    print('add done');
-    print(male);
-    await FirebaseFirestore.instance
-        .collection('events')
-        .doc('male female')
-        .collection('Apllaying')
-        .doc('Apllaying')
-        .set({'male': male});
     getApplaying();
+
+    if (curent!.gender == 'Male') {
+      male.add(FirebaseAuth.instance.currentUser!.uid);
+      maleCounter = male.length;
+
+      await FirebaseFirestore.instance
+          .collection('events')
+          .doc(widget.event.eventName)
+          .update({'maleAccept': male, 'maleCounter': maleCounter});
+    } else {
+      female.add(FirebaseAuth.instance.currentUser!.uid);
+      femaleCounter = female.length;
+
+      print('female added');
+
+      await FirebaseFirestore.instance
+          .collection('events')
+          .doc(widget.event.eventName)
+          .update({'femaleAccept': female, 'femaleCounter': femaleCounter});
+    }
+    checkApplayed();
+  }
+
+  void unApplyToEvent() async {
+    getApplaying();
+    if (curent!.gender == 'Male') {
+      male.remove(FirebaseAuth.instance.currentUser!.uid);
+      maleCounter - male.length;
+
+      await FirebaseFirestore.instance
+          .collection('events')
+          .doc(widget.event.eventName)
+          .update({'maleAccept': male, 'maleCounter': maleCounter});
+      applayed = false;
+    } else {
+      female.remove(FirebaseAuth.instance.currentUser!.uid);
+      femaleCounter = female.length;
+      applayed = false;
+
+      print('female removed');
+      await FirebaseFirestore.instance
+          .collection('events')
+          .doc(widget.event.eventName)
+          .update({'femaleAccept': female, 'femaleCounter': femaleCounter});
+    }
+    checkApplayed();
   }
 
   @override
@@ -78,63 +154,72 @@ class _EventDetailsMemberState extends State<EventDetailsMember> {
       appBar: AppBar(
         title: Text(widget.event.eventName),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.network(
-              widget.event.imageUrl,
-              width: double.infinity,
-              height: 200,
-              fit: BoxFit.cover,
-            ),
-            SizedBox(height: 16),
-            Text(
-              widget.event.eventName,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+      body: isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : Padding(
+              padding: EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.network(
+                    widget.event.imageUrl,
+                    width: double.infinity,
+                    height: 200,
+                    fit: BoxFit.cover,
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    widget.event.eventName,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Location: ${widget.event.eventLocation}',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Date: ${DateFormat('yyyy-MM-dd').format(widget.event.eventDate)}',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Time: ${widget.event.eventTime.toString()}',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Event Details: ${widget.event.eventDetails}',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Male Organizers: ${widget.event.maleOrganizers}',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Female Organizers: ${widget.event.femaleOrganizers}',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(height: 16),
+                  applayed
+                      ? ElevatedButton(
+                          onPressed: unApplyToEvent,
+                          child: Text('UnApply'),
+                        )
+                      : ElevatedButton(
+                          onPressed: applyToEvent,
+                          child: Text('Apply'),
+                        ),
+                ],
               ),
             ),
-            SizedBox(height: 8),
-            Text(
-              'Location: ${widget.event.eventLocation}',
-              style: TextStyle(fontSize: 16),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Date: ${DateFormat('yyyy-MM-dd').format(widget.event.eventDate)}',
-              style: TextStyle(fontSize: 16),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Time: ${widget.event.eventTime.toString()}',
-              style: TextStyle(fontSize: 16),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Event Details: ${widget.event.eventDetails}',
-              style: TextStyle(fontSize: 16),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Male Organizers: ${widget.event.maleOrganizers}',
-              style: TextStyle(fontSize: 16),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Female Organizers: ${widget.event.femaleOrganizers}',
-              style: TextStyle(fontSize: 16),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: applyToEvent,
-              child: Text('Apply'),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

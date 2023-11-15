@@ -20,7 +20,7 @@ class HomePageAdmin extends StatelessWidget {
       appBar: AppBar(
         leading: FutureBuilder<DocumentSnapshot>(
           future: FirebaseFirestore.instance.collection('Users').doc(id).get(),
-          builder: (context, snapshot) {
+          builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Container(
                 width: 50,
@@ -33,11 +33,20 @@ class HomePageAdmin extends StatelessWidget {
               return Text('Error occurred while fetching user data');
             }
 
-            final data = snapshot.data!.data() as Map<String, dynamic>;
+            if (!snapshot.hasData || snapshot.data == null) {
+              // Handle the case when no data is available
+              return Text('No user data available');
+            }
+
+            final data = snapshot.data?.data() as Map<String, dynamic>?;
+
+            if (data == null) {
+              return Text('No user data available');
+            }
+
             final firstName = data['FirstName'] ?? '';
             final secondName = data['LastName'] ?? '';
             final image = data['url'];
-
             return Row(
               children: [
                 Container(
@@ -102,7 +111,6 @@ class HomePageAdmin extends StatelessWidget {
                 ),
               ),
             ),
-
           ],
         ),
       ),
