@@ -79,7 +79,7 @@ class UserModel {
       return null;
     }
   }
-
+//
   Future<List<UserModel>> fetchAppliedMembersData(
       List<String> appliedMembers, List<UserModel> appliedMembersData) async {
     try {
