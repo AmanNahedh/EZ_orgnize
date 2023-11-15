@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ez_orgnize/fire_base/Cheak.dart';
-import 'package:ez_orgnize/screans/admin/nav_bar_admin.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -93,16 +92,11 @@ class _AddEventPageState extends State<AddEventPage> {
         'eventDetails': eventDetails,
         'maleOrganizers': maleOrganizers,
         'femaleOrganizers': femaleOrganizers,
+        'maleCounter': 0,
+        'maleAccept': [],
+        'femaleCounter': 0,
+        'femaleAccept': [],
         'imageUrl': imageUrl,
-      });
-      await FirebaseFirestore.instance
-          .collection('events')
-          .doc(eventName)
-          .collection('Apllaying')
-          .doc('Apllaying')
-          .set({
-        'male': [],
-        'female': [],
       });
 
       // Reset the form after successful submission

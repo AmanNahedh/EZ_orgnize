@@ -43,6 +43,7 @@ class _RegisterInfoState extends State<RegisterInfo> {
         .collection('Users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .set({
+      "gender": 'selectedGender',
       "FirstName": firstNameCont.text,
       "LastName": lastNameCont.text,
       "PhoneNumber": phone.toString(),
@@ -56,8 +57,6 @@ class _RegisterInfoState extends State<RegisterInfo> {
     }).then((value) async {
       print('done');
     });
-    print('-------------------------------------------------------');
-    print(selectedImage);
     await uploadImageToFirestore(selectedImage);
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -88,6 +87,7 @@ class _RegisterInfoState extends State<RegisterInfo> {
   var lastNameCont = TextEditingController();
   var tallCont = TextEditingController();
   var weightCont = TextEditingController();
+  String selectedGender = '';
 
   var phone = '';
   var city = 'Riyadh';
@@ -138,6 +138,48 @@ class _RegisterInfoState extends State<RegisterInfo> {
                       return 'pls enter valid name';
                     }
                   },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Gender',
+                      style: TextStyle(
+                        color: Theme.of(context).hintColor,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Radio<String>(
+                          value: 'Male',
+                          groupValue: selectedGender,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedGender = value!;
+                              print(selectedGender);
+                            });
+                          },
+                        ),
+                        Text('Male'),
+                        SizedBox(width: 16),
+                        Radio<String>(
+                          value: 'Female',
+                          groupValue: selectedGender,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedGender = value!;
+                              print(selectedGender);
+                            });
+                          },
+                        ),
+                        Text('Female'),
+                      ],
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: 20,

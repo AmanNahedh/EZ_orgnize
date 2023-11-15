@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ez_orgnize/modeals/event_model.dart';
 import 'package:ez_orgnize/modeals/usermodeal.dart';
 import 'package:ez_orgnize/screans/admin/member_profile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ApplayedMemebers extends StatefulWidget {
@@ -13,9 +14,12 @@ class ApplayedMemebers extends StatefulWidget {
 }
 
 class _ApplayedMemebersState extends State<ApplayedMemebers> {
+  var id = FirebaseAuth.instance.currentUser!.uid;
   late List<UserModel> allMembers = [];
   late List<UserModel> displayedMembers = [];
   late List<String> appliedMembers = [];
+  late List<dynamic> accepted = [];
+  var counter = 0;
 
   @override
   void initState() {
@@ -26,10 +30,7 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
   Future<void> fetchAppliedMembers() async {
     final snapshot = await FirebaseFirestore.instance
         .collection('events')
-        .doc('male female')
-        .collection('Apllaying')
-        .doc('Apllaying')
-        .get();
+        .doc(widget.event.eventName).get();
 
     if (snapshot.exists) {
       final data = snapshot.data();
@@ -40,6 +41,8 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
         }
       }
     }
+    print('-------------------');
+
     print(appliedMembers.length);
     var a = UserModel();
     await a.fetchAppliedMembersData(appliedMembers, allMembers);
@@ -55,6 +58,29 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
         final fullName = '${member.firstName} ${member.lastName}'.toLowerCase();
         return fullName.contains(query.toLowerCase());
       }).toList();
+    });
+  }
+
+  void getCounterAndAccept() async {
+    var doc = await FirebaseFirestore.instance
+        .collection('events')
+        .doc(widget.event.eventName)
+        .get();
+    var data = doc.data();
+    counter = await data!['counter'];
+    accepted = await data!['maleAccept'];
+    print('$counter counter');
+    print('${accepted.length} length');
+  }
+
+  void accept() async {
+    getCounterAndAccept();
+    accepted.add(id);
+    FirebaseFirestore.instance
+        .collection('events')
+        .doc(widget.event.eventName)
+        .update({'maleAccept': accepted}).then((value) {
+      print('updated');
     });
   }
 
@@ -97,9 +123,7 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
                         subtitle: Text(member.phoneNumber ?? ''),
                         trailing: IconButton(
                           icon: Icon(Icons.add),
-                          onPressed: () {
-                            print('done');
-                          },
+                          onPressed: () => accept(),
                         ),
                       );
                     },
