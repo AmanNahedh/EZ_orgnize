@@ -30,26 +30,25 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
   Future<void> fetchAppliedMembers() async {
     final snapshot = await FirebaseFirestore.instance
         .collection('events')
-        .doc(widget.event.eventName).get();
+        .doc(widget.event.eventName)
+        .get();
 
     if (snapshot.exists) {
       final data = snapshot.data();
       if (data != null && data is Map<String, dynamic>) {
-        final List<dynamic>? membersList = data['male'];
+        final List<dynamic>? membersList =
+            data['maleAccept'] + data['femaleAccept'];
         if (membersList != null && membersList is List<dynamic>) {
           appliedMembers = membersList.cast<String>();
         }
       }
     }
-    print('-------------------');
 
-    print(appliedMembers.length);
     var a = UserModel();
     await a.fetchAppliedMembersData(appliedMembers, allMembers);
     setState(() {
       displayedMembers = allMembers;
     });
-    print(allMembers.length);
   }
 
   void searchMembers(String query) {

@@ -97,7 +97,6 @@ class UserModel {
         }
       }
 
-      print('${appliedMembersData.length} hereeee');
       return appliedMembersData;
     } catch (e) {
       print('Error fetching applied members data: $e');
