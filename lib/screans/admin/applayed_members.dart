@@ -18,16 +18,12 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
   late List<UserModel> allMembers = [];
   late List<UserModel> displayedMembers = [];
   late List<String> appliedMembers = [];
-  late List<dynamic> accepted = [];
+  late List<String> accepted = [];
   var counter = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    fetchAppliedMembers();
-  }
-
-  Future<void> fetchAppliedMembers() async {
+  Future<List<UserModel>> fetchAppliedMembers() async {
+    await fetchAcceptedMembers();
+    print(accepted);
     final snapshot = await FirebaseFirestore.instance
         .collection('events')
         .doc(widget.event.eventName)
@@ -44,11 +40,14 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
       }
     }
 
-    var a = UserModel();
-    await a.fetchAppliedMembersData(appliedMembers, allMembers);
-    setState(() {
+    if (allMembers.isEmpty) {
+      var a = UserModel();
+      await a.fetchAppliedMembersData(appliedMembers, allMembers);
+      allMembers = allMembers.toSet().toList(); // Remove duplicates
       displayedMembers = allMembers;
-    });
+    }
+
+    return allMembers;
   }
 
   void searchMembers(String query) {
@@ -60,26 +59,46 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
     });
   }
 
-  void getCounterAndAccept() async {
-    var doc = await FirebaseFirestore.instance
+  fetchAcceptedMembers() async {
+    final snapshot = await FirebaseFirestore.instance
         .collection('events')
         .doc(widget.event.eventName)
         .get();
-    var data = doc.data();
-    counter = await data!['counter'];
-    accepted = await data!['maleAccept'];
-    print('$counter counter');
-    print('${accepted.length} length');
+
+    if (snapshot.exists) {
+      final data = snapshot.data();
+      if (data != null && data is Map<String, dynamic>) {
+        final List<dynamic>? membersList = data['Accepted Members'];
+        if (membersList != null && membersList is List<dynamic>) {
+          accepted = membersList.cast<String>();
+        }
+      }
+    }
   }
 
-  void accept() async {
-    getCounterAndAccept();
-    accepted.add(id);
+  void accept(user) async {
+    await fetchAcceptedMembers();
+    accepted.add(user);
     FirebaseFirestore.instance
         .collection('events')
         .doc(widget.event.eventName)
-        .update({'maleAccept': accepted}).then((value) {
+        .update({'Accepted Members': accepted}).then((value) {
+      setState(() {});
       print('updated');
+      print(accepted);
+    });
+  }
+
+  void remove(user) async {
+    await fetchAcceptedMembers();
+    accepted.remove(user);
+    FirebaseFirestore.instance
+        .collection('events')
+        .doc(widget.event.eventName)
+        .update({'Accepted Members': accepted}).then((value) {
+      setState(() {});
+      print('updated');
+      print(accepted);
     });
   }
 
@@ -87,7 +106,13 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Members'),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Members'),
+            Text('${widget.event.eventName} event'),
+          ],
+        ),
       ),
       body: Column(
         children: [
@@ -102,31 +127,93 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
             ),
           ),
           Expanded(
-            child: displayedMembers.isEmpty
-                ? Center(
+            child: FutureBuilder<List<UserModel>>(
+              future: fetchAppliedMembers(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Text('Error: ${snapshot.error}'),
+                  );
+                } else if (snapshot.hasData && snapshot.data!.isEmpty) {
+                  return Center(
                     child: Text('No members found'),
-                  )
-                : ListView.builder(
-                    itemCount: displayedMembers.length,
+                  );
+                } else {
+                  final filteredMembers = displayedMembers;
+                  final acceptedMembers = filteredMembers
+                      .where(
+                          (member) => accepted.contains(member.id.toString()))
+                      .toList();
+                  final pendingMembers = filteredMembers
+                      .where(
+                          (member) => !accepted.contains(member.id.toString()))
+                      .toList();
+
+                  return ListView.builder(
+                    itemCount: acceptedMembers.length + pendingMembers.length,
                     itemBuilder: (context, index) {
-                      final member = displayedMembers[index];
-                      return ListTile(
-                        onTap: () => Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => MemberProfile(
-                              id: member.id,
+                      if (index < acceptedMembers.length) {
+                        final member = acceptedMembers[index];
+                        return Container(
+                          margin: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.green[400],
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: ListTile(
+                            onTap: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => MemberProfile(
+                                  id: member.id,
+                                ),
+                              ),
+                            ),
+                            title:
+                                Text('${member.firstName} ${member.lastName}'),
+                            subtitle: Text(member.phoneNumber ?? ''),
+                            trailing: IconButton(
+                              icon: Icon(Icons.remove),
+                              onPressed: () => remove(member.id),
                             ),
                           ),
-                        ),
-                        title: Text('${member.firstName} ${member.lastName}'),
-                        subtitle: Text(member.phoneNumber ?? ''),
-                        trailing: IconButton(
-                          icon: Icon(Icons.add),
-                          onPressed: () => accept(),
-                        ),
-                      );
+                        );
+                      } else {
+                        final member =
+                            pendingMembers[index - acceptedMembers.length];
+                        return Container(
+                          margin: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: ListTile(
+                            onTap: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => MemberProfile(
+                                  id: member.id,
+                                ),
+                              ),
+                            ),
+                            title:
+                                Text('${member.firstName} ${member.lastName}'),
+                            subtitle: Text(member.phoneNumber ?? ''),
+                            trailing: IconButton(
+                              icon: Icon(Icons.add),
+                              onPressed: () => accept(member.id),
+                            ),
+                          ),
+                        );
+                      }
                     },
-                  ),
+                  );
+                }
+              },
+            ),
           ),
         ],
       ),
