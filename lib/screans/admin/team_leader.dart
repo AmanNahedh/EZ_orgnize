@@ -3,14 +3,14 @@ import 'package:ez_orgnize/modeals/usermodeal.dart';
 import 'package:ez_orgnize/screans/admin/member_profile.dart';
 import 'package:flutter/material.dart';
 
-class Meambers extends StatefulWidget {
-  const Meambers({Key? key}) : super(key: key);
+class TeamLeader extends StatefulWidget {
+  const TeamLeader({Key? key}) : super(key: key);
 
   @override
-  _MeambersState createState() => _MeambersState();
+  _TeamLeaderState createState() => _TeamLeaderState();
 }
 
-class _MeambersState extends State<Meambers> {
+class _TeamLeaderState extends State<TeamLeader> {
   late List<UserModel> allMembers;
   late List<UserModel> displayedMembers = [];
 
@@ -23,7 +23,7 @@ class _MeambersState extends State<Meambers> {
   Future<void> fetchMembers() async {
     final snapshot = await FirebaseFirestore.instance
         .collection('Users')
-        .where("Validity", isEqualTo: "organizer")
+        .where("Validity", isEqualTo: "TeamLeader")
         .get();
     final members = snapshot.docs
         .map((doc) {
@@ -63,7 +63,7 @@ class _MeambersState extends State<Meambers> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Members'),
+        title: Text('Team leaders'),
       ),
       body: Column(
         children: [
@@ -103,7 +103,7 @@ class _MeambersState extends State<Meambers> {
                             ),
                           ),
                           title: Text('${member.firstName} ${member.lastName}'),
-                          subtitle: Text(member.phoneNumber ?? ''),
+                          subtitle: Text(member.validity ?? ''),
                           // ...
 
                           trailing: Row(
@@ -120,8 +120,8 @@ class _MeambersState extends State<Meambers> {
                                 ),
                                 child: TextButton(
                                   onPressed: () => changeValidity(
-                                      member.id.toString(), 'admin'),
-                                  child: Text('admin'),
+                                      member.id.toString(), 'organizer'),
+                                  child: Text('organizer'),
                                 ),
                               ),
                               SizedBox(width: 8.0),
@@ -136,8 +136,8 @@ class _MeambersState extends State<Meambers> {
                                 ),
                                 child: TextButton(
                                   onPressed: () => changeValidity(
-                                      member.id.toString(), 'TeamLeader'),
-                                  child: Text('Team leader'),
+                                      member.id.toString(), 'admin'),
+                                  child: Text('admin'),
                                 ),
                               ),
                             ],

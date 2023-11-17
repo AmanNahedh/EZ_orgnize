@@ -3,6 +3,7 @@ class Assets {
   Assets._();
 
   static const String adminAddEvent = 'lib/screans/admin/add_event.dart';
+  static const String adminAdmins = 'lib/screans/admin/admins.dart';
   static const String adminApplayedMembers = 'lib/screans/admin/applayed_members.dart';
   static const String adminEventPost = 'lib/screans/admin/eventPost.dart';
   static const String adminEvents = 'lib/screans/admin/events.dart';
@@ -10,6 +11,7 @@ class Assets {
   static const String adminMeambres = 'lib/screans/admin/meambres.dart';
   static const String adminMemberProfile = 'lib/screans/admin/member_profile.dart';
   static const String adminNavBarAdmin = 'lib/screans/admin/nav_bar_admin.dart';
+  static const String adminTeamLeader = 'lib/screans/admin/team_leader.dart';
   static const String fireBaseCheak = 'lib/fire_base/Cheak.dart';
   static const String fireBaseFirebaseOptions = 'lib/fire_base/firebase_options.dart';
   static const String generalBirthdayInputWidget = 'lib/General/BirthdayInputWidget.dart';
