@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ez_orgnize/modeals/event_model.dart';
 import 'package:ez_orgnize/modeals/usermodeal.dart';
-import 'package:ez_orgnize/screans/event_details_member.dart';
+import 'package:ez_orgnize/screans/member/event_details_member.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

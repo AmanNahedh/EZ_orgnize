@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ez_orgnize/fire_base/Cheak.dart';
-import 'package:ez_orgnize/screans/event_member.dart';
+import 'package:ez_orgnize/screans/member/event_member.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

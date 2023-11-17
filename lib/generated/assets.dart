@@ -28,18 +28,24 @@ class Assets {
   static const String libMain = 'lib/main.dart';
   static const String libPhotoApple = 'lib/photo/Apple.png';
   static const String libTheme = 'lib/theme.dart';
+  static const String memberEventDetailsMember = 'lib/screans/member/event_details_member.dart';
+  static const String memberEventMember = 'lib/screans/member/event_member.dart';
+  static const String memberHomePageUseer = 'lib/screans/member/home_page_useer.dart';
+  static const String memberProfile = 'lib/screans/member/profile.dart';
   static const String modealsEventModel = 'lib/modeals/event_model.dart';
   static const String modealsUsermodeal = 'lib/modeals/usermodeal.dart';
   static const String photoApple = 'lib/photo/Apple.png';
   static const String photoGoogle = 'lib/photo/Google.png';
-  static const String screansEventDetailsMember = 'lib/screans/event_details_member.dart';
-  static const String screansEventMember = 'lib/screans/event_member.dart';
   static const String screansForgetPass = 'lib/screans/Forget_pass.dart';
-  static const String screansHomePageUseer = 'lib/screans/home_page_useer.dart';
   static const String screansLogin = 'lib/screans/login.dart';
-  static const String screansProfile = 'lib/screans/profile.dart';
   static const String screansRegister = 'lib/screans/register.dart';
   static const String screansRegister2 = 'lib/screans/register_2.dart';
+  static const String teamleaderEventDetLeader = 'lib/screans/team leader/event_det_leader.dart';
+  static const String teamleaderEventsLeader = 'lib/screans/team leader/events_leader.dart';
+  static const String teamleaderHomePageLeader = 'lib/screans/team leader/home_page_leader.dart';
+  static const String teamleaderMemberProfile = 'lib/screans/team leader/member_profile.dart';
+  static const String teamleaderMembersInTheEvent = 'lib/screans/team leader/members_in_the_event.dart';
+  static const String teamleaderNavBarLeader = 'lib/screans/team leader/nav_bar_leader.dart';
   static const String widgetNavBar = 'lib/widget/nav_bar.dart';
 
 }

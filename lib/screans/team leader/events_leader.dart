@@ -4,14 +4,14 @@ import 'package:ez_orgnize/screans/team%20leader/event_det_leader.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class Events extends StatefulWidget {
-  const Events({Key? key});
+class EventsLeader extends StatefulWidget {
+  const EventsLeader({Key? key});
 
   @override
-  State<Events> createState() => _EventsState();
+  State<EventsLeader> createState() => _EventsLeaderState();
 }
 
-class _EventsState extends State<Events> {
+class _EventsLeaderState extends State<EventsLeader> {
   late List<Event> events;
   bool _isLoading = true;
   Event? selectedEvent;
