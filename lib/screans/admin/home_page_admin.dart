@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ez_orgnize/screans/admin/add_event.dart';
+import 'package:ez_orgnize/screans/admin/admins.dart';
 import 'package:ez_orgnize/screans/admin/events.dart';
 import 'package:ez_orgnize/screans/admin/meambres.dart';
+import 'package:ez_orgnize/screans/admin/team_leader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -92,6 +94,24 @@ class HomePageAdmin extends StatelessWidget {
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => Meambers(),
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text('Admins'),
+              leading: Icon(Icons.admin_panel_settings),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => Admins(),
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text('Team leader'),
+              leading: Icon(Icons.manage_accounts_rounded),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => TeamLeader(),
                 ),
               ),
             ),
