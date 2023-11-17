@@ -1,6 +1,7 @@
 import 'package:ez_orgnize/screans/admin/home_page_admin.dart';
-import 'package:ez_orgnize/screans/home_page_useer.dart';
-import 'package:ez_orgnize/screans/profile.dart';
+import 'package:ez_orgnize/screans/member/home_page_useer.dart';
+import 'package:ez_orgnize/screans/member/profile.dart';
+
 import 'package:flutter/material.dart';
 
 class NavBarAdmin extends StatefulWidget {

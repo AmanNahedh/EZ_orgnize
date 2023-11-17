@@ -1,15 +1,16 @@
 import 'package:ez_orgnize/screans/member/home_page_useer.dart';
 import 'package:ez_orgnize/screans/member/profile.dart';
+import 'package:ez_orgnize/screans/team%20leader/home_page_leader.dart';
 import 'package:flutter/material.dart';
 
-class NavBarMember extends StatefulWidget {
-  const NavBarMember({super.key});
+class NavBarLeader extends StatefulWidget {
+  const NavBarLeader({super.key});
 
   @override
-  State<NavBarMember> createState() => _NavBarMemberState();
+  State<NavBarLeader> createState() => _NavBarLeaderState();
 }
 
-class _NavBarMemberState extends State<NavBarMember> {
+class _NavBarLeaderState extends State<NavBarLeader> {
   var index = 0;
 
   final bottom = [
@@ -18,7 +19,7 @@ class _NavBarMemberState extends State<NavBarMember> {
     BottomNavigationBarItem(icon: Icon(Icons.person), label: 'profile'),
   ];
   final List<Widget> screens = [
-    HomePageMember(), // Replace with the appropriate widget for your home page
+    HomePageLeader(), // Replace with the appropriate widget for your home page
     HomePageMember(), // Replace with the appropriate widget for the second item
     Profile(),
   ];
