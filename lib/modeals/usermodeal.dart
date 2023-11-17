@@ -79,7 +79,7 @@ class UserModel {
       return null;
     }
   }
-
+//
   Future<List<UserModel>> fetchAppliedMembersData(
       List<String> appliedMembers, List<UserModel> appliedMembersData) async {
     try {
@@ -97,7 +97,6 @@ class UserModel {
         }
       }
 
-      print('${appliedMembersData.length} hereeee');
       return appliedMembersData;
     } catch (e) {
       print('Error fetching applied members data: $e');
