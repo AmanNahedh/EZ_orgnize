@@ -4,13 +4,16 @@ import 'package:ez_orgnize/screans/admin/admins.dart';
 import 'package:ez_orgnize/screans/admin/events.dart';
 import 'package:ez_orgnize/screans/admin/meambres.dart';
 import 'package:ez_orgnize/screans/admin/team_leader.dart';
+import 'package:ez_orgnize/utils/onesignal_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomePageAdmin extends StatelessWidget {
   const HomePageAdmin({Key? key}) : super(key: key);
 
-  void signOut() {
+  Future<void> signOut() async {
+    await OneSignalManager.clearNotification();
+    await OneSignalManager.removeExternalUserId();
     FirebaseAuth.instance.signOut();
   }
 

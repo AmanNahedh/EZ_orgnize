@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ez_orgnize/fire_base/Cheak.dart';
 import 'package:ez_orgnize/screans/member/event_member.dart';
+import 'package:ez_orgnize/utils/onesignal_manager.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,9 @@ class _HomePageMemberState extends State<HomePageMember> {
     });
   }
 
-  void signOut() {
+   Future<void> signOut() async{
+     await OneSignalManager.clearNotification();
+    await OneSignalManager.removeExternalUserId();
     FirebaseAuth.instance.signOut();
     Navigator.of(context).push(
       MaterialPageRoute(

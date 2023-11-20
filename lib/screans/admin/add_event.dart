@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ez_orgnize/fire_base/Cheak.dart';
+import 'package:ez_orgnize/utils/onesignal_manager.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -105,6 +106,23 @@ class _AddEventPageState extends State<AddEventPage> {
       _eventDetailsController.clear();
       _maleOrganizersController.clear();
       _femaleOrganizersController.clear();
+
+      final result = await FirebaseFirestore.instance
+          .collection("Users")
+          .where("Validity", isEqualTo: "organizer")
+          .get();
+
+      final List<String> usersIds = [];
+
+      for (var element in result.docs) {
+        usersIds.add(element.id);
+      }
+
+      OneSignalManager.sendNotificationToUsers(
+        title: "New event",
+        content: "Check the app for the new events",
+        targets: usersIds,
+      );
 
       showDialog(
         context: context,
