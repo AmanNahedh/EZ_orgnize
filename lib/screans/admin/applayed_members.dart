@@ -88,6 +88,7 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
       print('updated');
       print(accepted);
     });
+    //notfi
     List<String> a = [];
     a.add(user);
     OneSignalManager.sendNotificationToUsers(
