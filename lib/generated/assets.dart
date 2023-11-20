@@ -9,7 +9,7 @@ class Assets {
   static const String adminEvents = 'lib/screans/admin/events.dart';
   static const String adminHomePageAdmin = 'lib/screans/admin/home_page_admin.dart';
   static const String adminMeambres = 'lib/screans/admin/meambres.dart';
-  static const String adminMemberProfile = 'lib/screans/admin/member_profile.dart';
+  static const String adminMemberProfile = 'lib/screans/admin/Attendance.dart';
   static const String adminNavBarAdmin = 'lib/screans/admin/nav_bar_admin.dart';
   static const String adminTeamLeader = 'lib/screans/admin/team_leader.dart';
   static const String fireBaseCheak = 'lib/fire_base/Cheak.dart';
@@ -43,7 +43,7 @@ class Assets {
   static const String teamleaderEventDetLeader = 'lib/screans/team leader/event_det_leader.dart';
   static const String teamleaderEventsLeader = 'lib/screans/team leader/events_leader.dart';
   static const String teamleaderHomePageLeader = 'lib/screans/team leader/home_page_leader.dart';
-  static const String teamleaderMemberProfile = 'lib/screans/team leader/member_profile.dart';
+  static const String teamleaderMemberProfile = 'lib/screans/team leader/Attendance.dart';
   static const String teamleaderMembersInTheEvent = 'lib/screans/team leader/members_in_the_event.dart';
   static const String teamleaderNavBarLeader = 'lib/screans/team leader/nav_bar_leader.dart';
   static const String widgetNavBar = 'lib/widget/nav_bar.dart';
