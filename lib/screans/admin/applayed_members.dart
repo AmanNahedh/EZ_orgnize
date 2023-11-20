@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ez_orgnize/modeals/event_model.dart';
 import 'package:ez_orgnize/modeals/usermodeal.dart';
 import 'package:ez_orgnize/screans/admin/member_profile.dart';
+import 'package:ez_orgnize/utils/onesignal_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,7 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
   var counter = 0;
 
   Future<List<UserModel>> fetchAppliedMembers() async {
+    allMembers.clear();
     await fetchAcceptedMembers();
     print(accepted);
     final snapshot = await FirebaseFirestore.instance
@@ -39,7 +41,6 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
         }
       }
     }
-
     if (allMembers.isEmpty) {
       var a = UserModel();
       await a.fetchAppliedMembersData(appliedMembers, allMembers);
@@ -87,6 +88,12 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
       print('updated');
       print(accepted);
     });
+    List<String> a = [];
+    a.add(user);
+    OneSignalManager.sendNotificationToUsers(
+        title: "Accept in event",
+        content: "you have been chosen in the event",
+        targets: a);
   }
 
   void remove(user) async {
@@ -100,6 +107,12 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
       print('updated');
       print(accepted);
     });
+  }
+
+  @override
+  void initState() {
+    fetchAppliedMembers();
+    super.initState();
   }
 
   @override

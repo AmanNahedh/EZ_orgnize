@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ez_orgnize/modeals/event_model.dart';
+import 'package:ez_orgnize/screans/admin/eventPost.dart';
 import 'package:ez_orgnize/screans/team%20leader/event_det_leader.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -53,7 +54,7 @@ class _EventsState extends State<Events> {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          EventDetLeader(eventLeader: selectedEvent!),
+                          EventDetailsPage(event: selectedEvent!),
                     ),
                   );
                 },
