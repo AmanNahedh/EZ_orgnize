@@ -88,13 +88,13 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
       print('updated');
       print(accepted);
     });
-    //notfi
-    List<String> a = [];
-    a.add(user);
+    //notfi2
+    List<String> notfi = [];
+    notfi.add(user);
     OneSignalManager.sendNotificationToUsers(
         title: "Accept in event",
         content: "you have been chosen in the event",
-        targets: a);
+        targets: notfi);
   }
 
   void remove(user) async {
