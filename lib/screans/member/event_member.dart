@@ -14,7 +14,7 @@ class EventMember extends StatefulWidget {
 }
 
 class _EventMemberState extends State<EventMember> {
-  late List<Event> events;
+  late List<Event> events = [];
   bool _isLoading = true;
   Event? selectedEvent;
   List<Event> male = [];
@@ -54,13 +54,24 @@ class _EventMemberState extends State<EventMember> {
     final QuerySnapshot snapshot =
         await FirebaseFirestore.instance.collection('events').get();
     print('am hereeeeee');
+    final serverEvents = snapshot.docs
+        .map((doc) => Event.fromMap(doc.data() as Map<String, dynamic>))
+        .toList();
+
+    final today = DateTime(DateTime.now().year, DateTime.now().month,DateTime.now().day);
+    for (var element in serverEvents) {
+      final DateTime eventDate = DateTime(element.eventDate.year,element.eventDate.month,element.eventDate.day);
+
+      if (eventDate.millisecondsSinceEpoch >= today.millisecondsSinceEpoch) {
+        print(element.eventDate);
+        events.add(element);
+      }
+    }
     setState(() {
-      events = snapshot.docs
-          .map((doc) => Event.fromMap(doc.data() as Map<String, dynamic>))
-          .toList();
       getCurrentUserInfo();
       _isLoading = false;
     });
+
   }
 
   @override
@@ -75,10 +86,10 @@ class _EventMemberState extends State<EventMember> {
               future: FirebaseFirestore.instance.collection('events').get(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  events = snapshot.data!.docs
-                      .map((doc) =>
-                          Event.fromMap(doc.data() as Map<String, dynamic>))
-                      .toList();
+                  // events = snapshot.data!.docs
+                  //     .map((doc) =>
+                  //         Event.fromMap(doc.data() as Map<String, dynamic>))
+                  //     .toList();
                   return ListView.builder(
                     itemCount: events.length,
                     itemBuilder: (context, index) {

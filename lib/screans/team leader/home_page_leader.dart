@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ez_orgnize/screans/team%20leader/events_leader.dart';
+import 'package:ez_orgnize/utils/onesignal_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomePageLeader extends StatelessWidget {
   const HomePageLeader({Key? key}) : super(key: key);
 
-  void signOut() {
+  Future<void> signOut() async{
+    await OneSignalManager.clearNotification();
+    await OneSignalManager.removeExternalUserId();
     FirebaseAuth.instance.signOut();
   }
 
