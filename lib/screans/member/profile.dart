@@ -4,8 +4,36 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
+
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  final id = FirebaseAuth.instance.currentUser!.uid;
+  var time = '';
+  var rat = '';
+
+  void fetchData() async {
+    await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(id)
+        .get()
+        .then((value) {
+      setState(() {
+        time = value.data()!['work time'].toString();
+        rat = value.data()!['rating'].toString();
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    fetchData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,53 +42,54 @@ class Profile extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: const Text('Profile'),
       ),
       body: FutureBuilder<DocumentSnapshot>(
         future: FirebaseFirestore.instance.collection('Users').doc(id).get(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
 
           if (snapshot.hasError) {
-            return Center(
+            return const Center(
               child: Text('Error occurred while fetching user data'),
             );
           }
 
-          final user = UserModel.fromSnapshot(snapshot.data!.data() as Map<String, dynamic>);
+          final user = UserModel.fromSnapshot(
+              snapshot.data!.data() as Map<String, dynamic>);
           final firstName = user.firstName ?? '';
           final lastName = user.lastName ?? '';
           final image = user.image ?? '';
 
           return Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 1,
               ),
               Center(
                 child: Container(
                   width: 150,
                   height: 150,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                   ),
                   child: ClipOval(
                     child: image.isEmpty
-                        ? Center(
-                      child: CircularProgressIndicator(),
-                    )
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
                         : Image.network(
-                      image,
-                      fit: BoxFit.cover,
-                    ),
+                            image,
+                            fit: BoxFit.cover,
+                          ),
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
@@ -71,7 +100,7 @@ class Profile extends StatelessWidget {
                 '$email',
                 style: GoogleFonts.abhayaLibre().copyWith(fontSize: 25),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
@@ -81,17 +110,14 @@ class Profile extends StatelessWidget {
                     height: 70,
                     width: 100,
                     decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(color: Colors.teal),
-                        top: BorderSide(color: Colors.teal),
-                      ),
+                      border: Border.all(color: Colors.teal),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('5'),
+                          Text('$time'),
                           Text(
                             'work hour',
                           ),
@@ -106,37 +132,17 @@ class Profile extends StatelessWidget {
                       border: Border.all(color: Colors.teal),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [Text('5'), Text('rating')],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 70,
-                    width: 80,
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(color: Colors.teal),
-                        top: BorderSide(color: Colors.teal),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('5'),
-                          Text('events'),
-                        ],
+                        children: [Text(rat), Text('rating')],
                       ),
                     ),
                   ),
                 ],
               ),
-              SizedBox(
-                height: 10,
+              const SizedBox(
+                height: 20,
               ),
               Divider(
                 thickness: 2,

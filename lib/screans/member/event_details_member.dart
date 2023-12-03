@@ -41,7 +41,7 @@ class _EventDetailsMemberState extends State<EventDetailsMember> {
 
     if (snapshot.exists) {
       Map<String, dynamic>? data =
-          await snapshot.data() as Map<String, dynamic>?;
+          snapshot.data() as Map<String, dynamic>?;
       if (data != null) {
         setState(() {
           male = List<String>.from(data['maleAccept'] ?? []);
@@ -54,7 +54,7 @@ class _EventDetailsMemberState extends State<EventDetailsMember> {
     }
 
     // Simulate a loading delay of 2 seconds
-    await Future.delayed(Duration(milliseconds: 1));
+    await Future.delayed(const Duration(milliseconds: 1));
     setState(() {
       isLoading = false;
     });
@@ -79,6 +79,7 @@ class _EventDetailsMemberState extends State<EventDetailsMember> {
       print('Error retrieving current user info: $e');
       return curent; // Return the provided currentUser object in case of an error
     }
+    return null;
   }
 
   @override
@@ -155,11 +156,11 @@ class _EventDetailsMemberState extends State<EventDetailsMember> {
         title: Text(widget.event.eventName),
       ),
       body: isLoading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -169,53 +170,53 @@ class _EventDetailsMemberState extends State<EventDetailsMember> {
                     height: 200,
                     fit: BoxFit.cover,
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Text(
                     widget.event.eventName,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     'Location: ${widget.event.eventLocation}',
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     'Date: ${DateFormat('yyyy-MM-dd').format(widget.event.eventDate)}',
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     'Time: ${widget.event.eventTime.toString()}',
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     'Event Details: ${widget.event.eventDetails}',
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     'Male Organizers: ${widget.event.maleOrganizers}',
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     'Female Organizers: ${widget.event.femaleOrganizers}',
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   applayed
                       ? ElevatedButton(
                           onPressed: unApplyToEvent,
-                          child: Text('UnApply'),
+                          child: const Text('UnApply'),
                         )
                       : ElevatedButton(
                           onPressed: applyToEvent,
-                          child: Text('Apply'),
+                          child: const Text('Apply'),
                         ),
                 ],
               ),

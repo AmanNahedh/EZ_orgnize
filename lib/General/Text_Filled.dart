@@ -19,7 +19,7 @@ class Text_Filled extends StatelessWidget{
         controller:controller ,
         obscureText:obscureText,
         decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
+          enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.white),
             //borderRadius: BorderRadius.circular(20),
           ),

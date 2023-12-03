@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ez_orgnize/modeals/usermodeal.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,19 +18,19 @@ class _MemberProfileState extends State<MemberProfile> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: const Text('Profile'),
       ),
       body: FutureBuilder<DocumentSnapshot>(
         future: FirebaseFirestore.instance.collection('Users').doc(widget.id).get(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
 
           if (snapshot.hasError) {
-            return Center(
+            return const Center(
               child: Text('Error occurred while fetching user data'),
             );
           }
@@ -43,19 +42,19 @@ class _MemberProfileState extends State<MemberProfile> {
 
           return Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 1,
               ),
               Center(
                 child: Container(
                   width: 150,
                   height: 150,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                   ),
                   child: ClipOval(
                     child: image.isEmpty
-                        ? Center(
+                        ? const Center(
                       child: CircularProgressIndicator(),
                     )
                         : Image.network(
@@ -65,14 +64,14 @@ class _MemberProfileState extends State<MemberProfile> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
                 '$firstName $lastName',
                 style: GoogleFonts.abhayaLibre().copyWith(fontSize: 50),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
@@ -81,14 +80,14 @@ class _MemberProfileState extends State<MemberProfile> {
                   Container(
                     height: 70,
                     width: 100,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       border: Border(
                         bottom: BorderSide(color: Colors.teal),
                         top: BorderSide(color: Colors.teal),
                       ),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -106,8 +105,8 @@ class _MemberProfileState extends State<MemberProfile> {
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.teal),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [Text('5'), Text('rating')],
@@ -117,14 +116,14 @@ class _MemberProfileState extends State<MemberProfile> {
                   Container(
                     height: 70,
                     width: 80,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       border: Border(
                         bottom: BorderSide(color: Colors.teal),
                         top: BorderSide(color: Colors.teal),
                       ),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -136,7 +135,7 @@ class _MemberProfileState extends State<MemberProfile> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Divider(

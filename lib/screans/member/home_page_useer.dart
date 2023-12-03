@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomePageMember extends StatefulWidget {
-  HomePageMember({Key? key});
+  const HomePageMember({super.key,});
 
   @override
   State<HomePageMember> createState() => _HomePageMemberState();
@@ -27,6 +27,7 @@ class _HomePageMemberState extends State<HomePageMember> {
       secondName = user.data()!['LastName'];
       image = user.data()!['url'];
     });
+
   }
 
    Future<void> signOut() async{
@@ -35,7 +36,7 @@ class _HomePageMemberState extends State<HomePageMember> {
     FirebaseAuth.instance.signOut();
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => cheak(),
+        builder: (context) => const cheak(),
       ),
     );
   }
@@ -46,6 +47,7 @@ class _HomePageMemberState extends State<HomePageMember> {
     super.initState();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,12 +57,12 @@ class _HomePageMemberState extends State<HomePageMember> {
             Container(
               width: 50,
               height: 50,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 shape: BoxShape.circle,
               ),
               child: ClipOval(
                 child: image.isEmpty
-                    ? Center(
+                    ? const Center(
                         child:
                             CircularProgressIndicator(), // Show loading indicator
                       )
@@ -70,7 +72,7 @@ class _HomePageMemberState extends State<HomePageMember> {
                       ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Text('$firstName $secondName'),
@@ -80,7 +82,7 @@ class _HomePageMemberState extends State<HomePageMember> {
         actions: [
           IconButton(
             onPressed: signOut,
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
           ),
         ],
       ),
@@ -89,10 +91,10 @@ class _HomePageMemberState extends State<HomePageMember> {
         child: Column(
           children: [
             ListTile(
-              title: Text('events'),
+              title: const Text('events'),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => EventMember(),
+                  builder: (context) => const EventMember(),
                 ),
               ),
             ),

@@ -3,20 +3,20 @@ import 'package:flutter/services.dart';
 
 ThemeData getCustomAppTheme() {
   // Define the colors using the Material Design color palette
-  final Color primaryColor = Colors.indigo;
-  final Color accentColor = Colors.teal;
+  const Color primaryColor = Colors.indigo;
+  const Color accentColor = Colors.teal;
   final Color? scaffoldBackgroundColor = Colors.grey[100];
-  final Color appBarColor = Colors.teal;
+  const Color appBarColor = Colors.teal;
 
   return ThemeData(
     primaryColor: primaryColor,
     hintColor: accentColor,
     scaffoldBackgroundColor: scaffoldBackgroundColor,
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       color: appBarColor,
       elevation: 0, systemOverlayStyle: SystemUiOverlayStyle.dark,
     ),
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       titleLarge: TextStyle(
         color: primaryColor,
         fontSize: 18,
@@ -26,7 +26,7 @@ ThemeData getCustomAppTheme() {
         color: Colors.black87,
       ),
     ),
-    buttonTheme: ButtonThemeData(
+    buttonTheme: const ButtonThemeData(
       buttonColor: accentColor,
       textTheme: ButtonTextTheme.primary,
     ),

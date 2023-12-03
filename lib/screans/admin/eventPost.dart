@@ -16,7 +16,7 @@ class EventDetailsPage extends StatelessWidget {
         title: Text(event.eventName),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -26,52 +26,52 @@ class EventDetailsPage extends StatelessWidget {
               height: 200,
               fit: BoxFit.cover,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               event.eventName,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               'Location: ${event.eventLocation}',
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               'Date: ${DateFormat('yyyy-MM-dd').format(event.eventDate)}',
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               'Time: ${event.eventTime.toString()}',
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               'Event Details: ${event.eventDetails}',
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               'Male Organizers: ${event.maleOrganizers}',
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               'Female Organizers: ${event.femaleOrganizers}',
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => ApplayedMemebers(event: event),
                 ),
               ),
-              child: Text('Show applayed'),
+              child: const Text('Show applayed'),
             ),
           ],
         ),

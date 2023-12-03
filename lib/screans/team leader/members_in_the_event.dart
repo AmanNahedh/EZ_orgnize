@@ -25,9 +25,9 @@ class _MembersInTheEventState extends State<MembersInTheEvent> {
 
     if (snapshot.exists) {
       final data = snapshot.data();
-      if (data != null && data is Map<String, dynamic>) {
+      if (data != null) {
         final List<dynamic>? membersList = data['Accepted Members'];
-        if (membersList != null && membersList is List<dynamic>) {
+        if (membersList != null) {
           acceptedMembers.clear();
           for (final memberId in membersList) {
             final memberSnapshot = await FirebaseFirestore.instance
@@ -37,7 +37,7 @@ class _MembersInTheEventState extends State<MembersInTheEvent> {
 
             if (memberSnapshot.exists) {
               final memberData = memberSnapshot.data();
-              if (memberData != null && memberData is Map<String, dynamic>) {
+              if (memberData != null) {
                 final UserModel member = UserModel.fromSnapshot(memberData);
                 acceptedMembers.add(member);
               }
@@ -57,7 +57,7 @@ class _MembersInTheEventState extends State<MembersInTheEvent> {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Members'),
+            const Text('Members'),
             Text('${widget.event.eventName} event'),
           ],
         ),
@@ -66,7 +66,7 @@ class _MembersInTheEventState extends State<MembersInTheEvent> {
         future: fetchAcceptedMembers(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError) {
@@ -74,7 +74,7 @@ class _MembersInTheEventState extends State<MembersInTheEvent> {
               child: Text('Error: ${snapshot.error}'),
             );
           } else if (snapshot.hasData && snapshot.data!.isEmpty) {
-            return Center(
+            return const Center(
               child: Text('No members found'),
             );
           } else {
@@ -91,14 +91,14 @@ class _MembersInTheEventState extends State<MembersInTheEvent> {
                       ),
                     ),
                   ),
-                  leading: Icon(Icons.person),
+                  leading: const Icon(Icons.person),
                   title: Text('${member.firstName} ${member.lastName}'),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(member.gender ?? ''),
                       Text(member.phoneNumber ?? ''),
-                      Divider(),
+                      const Divider(),
                     ],
                   ),
                 );

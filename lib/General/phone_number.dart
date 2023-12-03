@@ -4,7 +4,7 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 class PhoneNumberInputWidget extends StatefulWidget {
   final Function(String)? onPhoneNumberChanged;
 
-  const PhoneNumberInputWidget({this.onPhoneNumberChanged});
+  const PhoneNumberInputWidget({super.key, this.onPhoneNumberChanged});
 
   @override
   _PhoneNumberInputWidgetState createState() => _PhoneNumberInputWidgetState();
@@ -32,20 +32,20 @@ class _PhoneNumberInputWidgetState extends State<PhoneNumberInputWidget> {
           widget.onPhoneNumberChanged!(_phoneNumber?.phoneNumber ?? '');
         }
       },
-      selectorConfig: SelectorConfig(
+      selectorConfig: const SelectorConfig(
         selectorType: PhoneInputSelectorType.DIALOG,
       ),
       ignoreBlank: false,
       autoValidateMode: AutovalidateMode.disabled,
-      selectorTextStyle: TextStyle(color: Colors.black),
+      selectorTextStyle: const TextStyle(color: Colors.black),
       textFieldController: _phoneNumberController,
       formatInput: true,
-      keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true),
-      inputDecoration: InputDecoration(
+      keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+      inputDecoration: const InputDecoration(
         labelText: 'Phone Number',
         border: OutlineInputBorder(),
       ),
-      countries: ['SA'],
+      countries: const ['SA'],
 
     );
   }

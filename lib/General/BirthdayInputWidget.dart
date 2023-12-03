@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 class BirthdayInputWidget extends StatefulWidget {
   final Function(DateTime) onDateSelected;
 
-  const BirthdayInputWidget({required this.onDateSelected});
+  const BirthdayInputWidget({super.key, required this.onDateSelected});
 
   @override
   _BirthdayInputWidgetState createState() => _BirthdayInputWidgetState();
@@ -49,13 +49,13 @@ class _BirthdayInputWidgetState extends State<BirthdayInputWidget> {
             fontSize: 16,
           ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         GestureDetector(
           onTap: () {
             _selectDate(context);
           },
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey),
               borderRadius: BorderRadius.circular(4),

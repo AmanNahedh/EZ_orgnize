@@ -27,7 +27,7 @@ class HomePageAdmin extends StatelessWidget {
           future: FirebaseFirestore.instance.collection('Users').doc(id).get(),
           builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Container(
+              return const SizedBox(
                 width: 50,
                 height: 50,
                 child: CircularProgressIndicator(),
@@ -35,18 +35,18 @@ class HomePageAdmin extends StatelessWidget {
             }
 
             if (snapshot.hasError) {
-              return Text('Error occurred while fetching user data');
+              return const Text('Error occurred while fetching user data');
             }
 
             if (!snapshot.hasData || snapshot.data == null) {
               // Handle the case when no data is available
-              return Text('No user data available');
+              return const Text('No user data available');
             }
 
             final data = snapshot.data?.data() as Map<String, dynamic>?;
 
             if (data == null) {
-              return Text('No user data available');
+              return const Text('No user data available');
             }
 
             final firstName = data['FirstName'] ?? '';
@@ -57,12 +57,12 @@ class HomePageAdmin extends StatelessWidget {
                 Container(
                   width: 50,
                   height: 50,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                   ),
                   child: ClipOval(
                     child: image.isEmpty
-                        ? Center(
+                        ? const Center(
                             child: CircularProgressIndicator(),
                           )
                         : Image.network(
@@ -71,7 +71,7 @@ class HomePageAdmin extends StatelessWidget {
                           ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Text('$firstName $secondName'),
@@ -83,7 +83,7 @@ class HomePageAdmin extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: signOut,
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
           ),
         ],
       ),
@@ -92,45 +92,45 @@ class HomePageAdmin extends StatelessWidget {
         child: Column(
           children: [
             ListTile(
-              title: Text('Members'),
-              leading: Icon(Icons.person),
+              title: const Text('Members'),
+              leading: const Icon(Icons.person),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => Meambers(),
+                  builder: (context) => const Meambers(),
                 ),
               ),
             ),
             ListTile(
-              title: Text('Admins'),
-              leading: Icon(Icons.admin_panel_settings),
+              title: const Text('Admins'),
+              leading: const Icon(Icons.admin_panel_settings),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => Admins(),
+                  builder: (context) => const Admins(),
                 ),
               ),
             ),
             ListTile(
-              title: Text('Team leader'),
-              leading: Icon(Icons.manage_accounts_rounded),
+              title: const Text('Team leader'),
+              leading: const Icon(Icons.manage_accounts_rounded),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => TeamLeader(),
+                  builder: (context) => const TeamLeader(),
                 ),
               ),
             ),
             ListTile(
-              title: Text('Add event'),
-              leading: Icon(Icons.event),
+              title: const Text('Add event'),
+              leading: const Icon(Icons.event),
               onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => AddEventPage(),
+                builder: (context) => const AddEventPage(),
               )),
             ),
             ListTile(
-              title: Text('Events'),
-              leading: Icon(Icons.event_available_sharp),
+              title: const Text('Events'),
+              leading: const Icon(Icons.event_available_sharp),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => Events(),
+                  builder: (context) => const Events(),
                 ),
               ),
             ),

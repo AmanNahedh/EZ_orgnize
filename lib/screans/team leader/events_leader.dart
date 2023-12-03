@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class EventsLeader extends StatefulWidget {
-  const EventsLeader({Key? key});
+  const EventsLeader({super.key,});
 
   @override
   State<EventsLeader> createState() => _EventsLeaderState();
@@ -38,10 +38,10 @@ class _EventsLeaderState extends State<EventsLeader> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Events'),
+        title: const Text('Events'),
       ),
       body: _isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
               itemCount: events.length,
               itemBuilder: (context, index) => GestureDetector(
@@ -58,7 +58,7 @@ class _EventsLeaderState extends State<EventsLeader> {
                   );
                 },
                 child: Card(
-                  margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: ListTile(
                     leading: Image.network(
                       events[index].imageUrl,
@@ -68,7 +68,7 @@ class _EventsLeaderState extends State<EventsLeader> {
                     ),
                     title: Text(
                       events[index].eventName,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

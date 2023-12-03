@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class EventMember extends StatefulWidget {
-  const EventMember({Key? key});
+  const EventMember({super.key,});
 
   @override
   State<EventMember> createState() => _EventMemberState();
@@ -42,6 +42,7 @@ class _EventMemberState extends State<EventMember> {
       print('Error retrieving current user info: $e');
       return curent; // Return the provided currentUser object in case of an error
     }
+    return null;
   }
 
   @override
@@ -98,7 +99,7 @@ class _EventMemberState extends State<EventMember> {
                               curent.gender == 'Female') ||
                           (event.maleOrganizers == 0 &&
                               curent.gender == 'Male')) {
-                        return Text('');
+                        return const Text('');
                       } else if ((event.maleOrganizers <= event.maleCounter &&
                           event.femaleOrganizers <= event.femaleCounter)) {
                         return GestureDetector(
