@@ -72,11 +72,11 @@ class _cheakState extends State<cheak> {
           //Show home page
           if (snapshot.hasData) {
             if (Validity == 'admin') {
-              return NavBarAdmin();
+              return const NavBarAdmin();
             } else if (Validity == 'TeamLeader') {
-              return NavBarLeader();
+              return const NavBarLeader();
             } else
-              return NavBarMember();
+              return const NavBarMember();
           }
           //show login page
           else {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CityPickerWidget extends StatefulWidget {
   final Function(String)? onCitySelected;
 
-  const CityPickerWidget({this.onCitySelected});
+  const CityPickerWidget({super.key, this.onCitySelected});
 
   @override
   _CityPickerWidgetState createState() => _CityPickerWidgetState();
@@ -31,11 +31,11 @@ class _CityPickerWidgetState extends State<CityPickerWidget> {
         }
         return null;
       },
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         labelText: 'City',
         border: OutlineInputBorder(),
       ),
-      items: [
+      items: const [
         DropdownMenuItem<String>(
           value: 'Riyadh',
           child: Text('Riyadh'),

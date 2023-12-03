@@ -15,14 +15,14 @@ class _NavBarAdminState extends State<NavBarAdmin> {
   var index = 0;
 
   final bottom = [
-    BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-    BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-    BottomNavigationBarItem(icon: Icon(Icons.person), label: 'profile'),
+    const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+    const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+    const BottomNavigationBarItem(icon: Icon(Icons.person), label: 'profile'),
   ];
   final List<Widget> screens = [
-    HomePageAdmin(), // Replace with the appropriate widget for your home page
-    HomePageMember(), // Replace with the appropriate widget for the second item
-    Profile(),
+    const HomePageAdmin(), // Replace with the appropriate widget for your home page
+    const HomePageMember(), // Replace with the appropriate widget for the second item
+    const Profile(),
   ];
 
   @override

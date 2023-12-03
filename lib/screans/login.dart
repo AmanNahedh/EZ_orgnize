@@ -39,7 +39,7 @@ class _LogInState extends State<LogIn> {
       //finish
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => cheak(),
+          builder: (context) => const cheak(),
         ),
       );
     } on FirebaseAuthException catch (a) {
@@ -94,7 +94,7 @@ class _LogInState extends State<LogIn> {
                 ),
 
                 // login massage
-                Text(
+                const Text(
                   "Sign IN !",
                   style: TextStyle(
                     color: Colors.black,
@@ -140,7 +140,7 @@ class _LogInState extends State<LogIn> {
                           )
                           );
                         },
-                        child: Text(
+                        child: const Text(
                           'Forgot Password?',
                           style: TextStyle(color: Colors.blue,
                               fontWeight: FontWeight.bold),
@@ -170,10 +170,10 @@ class _LogInState extends State<LogIn> {
                       onPressed: () =>
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => Register(),
+                              builder: (context) => const Register(),
                             ),
                           ),
-                      child: Text('Register now'),
+                      child: const Text('Register now'),
                     ),
                   ],
                 )

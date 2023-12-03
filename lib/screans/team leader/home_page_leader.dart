@@ -23,7 +23,7 @@ class HomePageLeader extends StatelessWidget {
           future: FirebaseFirestore.instance.collection('Users').doc(id).get(),
           builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Container(
+              return const SizedBox(
                 width: 50,
                 height: 50,
                 child: CircularProgressIndicator(),
@@ -31,18 +31,18 @@ class HomePageLeader extends StatelessWidget {
             }
 
             if (snapshot.hasError) {
-              return Text('Error occurred while fetching user data');
+              return const Text('Error occurred while fetching user data');
             }
 
             if (!snapshot.hasData || snapshot.data == null) {
               // Handle the case when no data is available
-              return Text('No user data available');
+              return const Text('No user data available');
             }
 
             final data = snapshot.data?.data() as Map<String, dynamic>?;
 
             if (data == null) {
-              return Text('No user data available');
+              return const Text('No user data available');
             }
 
             final firstName = data['FirstName'] ?? '';
@@ -53,12 +53,12 @@ class HomePageLeader extends StatelessWidget {
                 Container(
                   width: 50,
                   height: 50,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                   ),
                   child: ClipOval(
                     child: image.isEmpty
-                        ? Center(
+                        ? const Center(
                             child: CircularProgressIndicator(),
                           )
                         : Image.network(
@@ -67,7 +67,7 @@ class HomePageLeader extends StatelessWidget {
                           ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Text('$firstName $secondName'),
@@ -79,7 +79,7 @@ class HomePageLeader extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: signOut,
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
           ),
         ],
       ),
@@ -88,11 +88,11 @@ class HomePageLeader extends StatelessWidget {
         child: Column(
           children: [
             ListTile(
-              title: Text('Events'),
-              leading: Icon(Icons.event_available_sharp),
+              title: const Text('Events'),
+              leading: const Icon(Icons.event_available_sharp),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => EventsLeader(),
+                  builder: (context) => const EventsLeader(),
                 ),
               ),
             ),

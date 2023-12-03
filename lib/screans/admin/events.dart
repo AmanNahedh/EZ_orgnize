@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ez_orgnize/modeals/event_model.dart';
 import 'package:ez_orgnize/screans/admin/eventPost.dart';
-import 'package:ez_orgnize/screans/team%20leader/event_det_leader.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Events extends StatefulWidget {
-  const Events({Key? key});
+  const Events({super.key});
 
   @override
   State<Events> createState() => _EventsState();
@@ -39,10 +38,10 @@ class _EventsState extends State<Events> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Events'),
+        title: const Text('Events'),
       ),
       body: _isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
               itemCount: events.length,
               itemBuilder: (context, index) => GestureDetector(
@@ -59,7 +58,7 @@ class _EventsState extends State<Events> {
                   );
                 },
                 child: Card(
-                  margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: ListTile(
                     leading: Image.network(
                       events[index].imageUrl,
@@ -69,7 +68,7 @@ class _EventsState extends State<Events> {
                     ),
                     title: Text(
                       events[index].eventName,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

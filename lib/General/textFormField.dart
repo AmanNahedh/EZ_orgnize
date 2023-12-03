@@ -21,7 +21,7 @@ class TextForm extends StatelessWidget {
     return TextFormField(
       decoration: InputDecoration(
         label: Text(hint),
-        icon: icon ?? null,
+        icon: icon,
       ),
       controller: controler,
       validator: valid,

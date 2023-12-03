@@ -33,10 +33,10 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
 
     if (snapshot.exists) {
       final data = snapshot.data();
-      if (data != null && data is Map<String, dynamic>) {
+      if (data != null) {
         final List<dynamic>? membersList =
             data['maleAccept'] + data['femaleAccept'];
-        if (membersList != null && membersList is List<dynamic>) {
+        if (membersList != null) {
           appliedMembers = membersList.cast<String>();
         }
       }
@@ -68,9 +68,9 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
 
     if (snapshot.exists) {
       final data = snapshot.data();
-      if (data != null && data is Map<String, dynamic>) {
+      if (data != null) {
         final List<dynamic>? membersList = data['Accepted Members'];
-        if (membersList != null && membersList is List<dynamic>) {
+        if (membersList != null) {
           accepted = membersList.cast<String>();
         }
       }
@@ -123,7 +123,7 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Members'),
+            const Text('Members'),
             Text('${widget.event.eventName} event'),
           ],
         ),
@@ -134,7 +134,7 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               onChanged: searchMembers,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Search',
                 prefixIcon: Icon(Icons.search),
               ),
@@ -145,7 +145,7 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
               future: fetchAppliedMembers(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else if (snapshot.hasError) {
@@ -153,7 +153,7 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
                     child: Text('Error: ${snapshot.error}'),
                   );
                 } else if (snapshot.hasData && snapshot.data!.isEmpty) {
-                  return Center(
+                  return const Center(
                     child: Text('No members found'),
                   );
                 } else {
@@ -173,7 +173,7 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
                       if (index < acceptedMembers.length) {
                         final member = acceptedMembers[index];
                         return Container(
-                          margin: EdgeInsets.all(10),
+                          margin: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             color: Colors.green[400],
                             border: Border.all(color: Colors.grey),
@@ -191,7 +191,7 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
                                 Text('${member.firstName} ${member.lastName}'),
                             subtitle: Text(member.phoneNumber ?? ''),
                             trailing: IconButton(
-                              icon: Icon(Icons.remove),
+                              icon: const Icon(Icons.remove),
                               onPressed: () => remove(member.id),
                             ),
                           ),
@@ -200,7 +200,7 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
                         final member =
                             pendingMembers[index - acceptedMembers.length];
                         return Container(
-                          margin: EdgeInsets.all(10),
+                          margin: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey),
                             borderRadius: BorderRadius.circular(8.0),
@@ -217,7 +217,7 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
                                 Text('${member.firstName} ${member.lastName}'),
                             subtitle: Text(member.phoneNumber ?? ''),
                             trailing: IconButton(
-                              icon: Icon(Icons.add),
+                              icon: const Icon(Icons.add),
                               onPressed: () => accept(member.id),
                             ),
                           ),

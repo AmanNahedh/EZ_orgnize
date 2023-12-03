@@ -9,6 +9,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class AddEventPage extends StatefulWidget {
+  const AddEventPage({super.key});
+
   @override
   _AddEventPageState createState() => _AddEventPageState();
 }
@@ -128,16 +130,16 @@ class _AddEventPageState extends State<AddEventPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Success'),
-            content: Text('Event added successfully!'),
+            title: const Text('Success'),
+            content: const Text('Event added successfully!'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => cheak(),
+                    builder: (context) => const cheak(),
                   ));
                 },
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           );
@@ -149,14 +151,14 @@ class _AddEventPageState extends State<AddEventPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Error'),
-            content: Text('Failed to add event. Please try again.'),
+            title: const Text('Error'),
+            content: const Text('Failed to add event. Please try again.'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           );
@@ -173,10 +175,10 @@ class _AddEventPageState extends State<AddEventPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Event'),
+        title: const Text('Add Event'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           child: SingleChildScrollView(
             child: Column(
@@ -184,22 +186,22 @@ class _AddEventPageState extends State<AddEventPage> {
               children: [
                 TextFormField(
                   controller: _eventNameController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Event Name',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(height: 20.0),
+                const SizedBox(height: 20.0),
                 GestureDetector(
                   onTap: () => _selectDate(context),
                   child: Container(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     decoration:
                         BoxDecoration(border: Border.all(color: Colors.grey)),
                     child: Row(
                       children: [
-                        Icon(Icons.calendar_today),
-                        SizedBox(width: 8.0),
+                        const Icon(Icons.calendar_today),
+                        const SizedBox(width: 8.0),
                         Text(
                           'Event Date: ${DateFormat('yyyy-MM-dd').format(selectedDate)}',
                         ),
@@ -207,17 +209,17 @@ class _AddEventPageState extends State<AddEventPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 GestureDetector(
                   onTap: () => _selectTime(context),
                   child: Container(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     decoration:
                         BoxDecoration(border: Border.all(color: Colors.grey)),
                     child: Row(
                       children: [
-                        Icon(Icons.watch_later_outlined),
-                        SizedBox(width: 8.0),
+                        const Icon(Icons.watch_later_outlined),
+                        const SizedBox(width: 8.0),
                         Text(
                           'Selected Time: ${selectedTime?.format(context) ?? 'Not selected'}',
                         ),
@@ -225,24 +227,24 @@ class _AddEventPageState extends State<AddEventPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextFormField(
                   controller: _eventLocationController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Event Location',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 TextFormField(
                   controller: _eventDetailsController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Event Details',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(height: 16.0),
-                SizedBox(
+                const SizedBox(height: 16.0),
+                const SizedBox(
                   width: double.infinity,
                   child: Text(
                     'How many organizers do you need?',
@@ -254,23 +256,23 @@ class _AddEventPageState extends State<AddEventPage> {
                     maxLines: 2,
                   ),
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 Row(
                   children: [
                     Expanded(
                       child: TextFormField(
                         controller: _maleOrganizersController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Male',
                           border: OutlineInputBorder(),
                         ),
                       ),
                     ),
-                    SizedBox(width: 8.0),
+                    const SizedBox(width: 8.0),
                     Expanded(
                       child: TextFormField(
                         controller: _femaleOrganizersController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Female',
                           border: OutlineInputBorder(),
                         ),
@@ -278,17 +280,9 @@ class _AddEventPageState extends State<AddEventPage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 Visibility(
                   visible: editMode,
-                  child: Container(
-                    height: 150,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(6),
-                        image: DecorationImage(
-                            image: NetworkImage(editModeImageURL))),
-                  ),
                   replacement: GestureDetector(
                     onTap: () {
                       showModalBottomSheet(
@@ -297,7 +291,7 @@ class _AddEventPageState extends State<AddEventPage> {
                       );
                     },
                     child: selectedImage != null
-                        ? Container(
+                        ? SizedBox(
                             height: 150,
                             width: MediaQuery.of(context).size.width,
                             child: ClipRRect(
@@ -319,7 +313,7 @@ class _AddEventPageState extends State<AddEventPage> {
                                 ),
                                 borderRadius: BorderRadius.circular(6)),
                             width: MediaQuery.of(context).size.width,
-                            child: Column(
+                            child: const Column(
                               children: [
                                 SizedBox(height: 30),
                                 Icon(Icons.account_box, size: 50.0),
@@ -331,16 +325,24 @@ class _AddEventPageState extends State<AddEventPage> {
                             ),
                           ),
                   ),
+                  child: Container(
+                    height: 150,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(6),
+                        image: DecorationImage(
+                            image: NetworkImage(editModeImageURL))),
+                  ),
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: isUploading ? null : _addEventToFirestore,
                   child: isUploading
-                      ? CircularProgressIndicator(
+                      ? const CircularProgressIndicator(
                           valueColor:
                               AlwaysStoppedAnimation<Color>(Colors.white),
                         )
-                      : Text(
+                      : const Text(
                           'Add Event',
                           style: TextStyle(color: Colors.white),
                         ),
@@ -357,19 +359,19 @@ class _AddEventPageState extends State<AddEventPage> {
     return Container(
       height: 100.0,
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         horizontal: 95,
         vertical: 20,
       ),
       child: Column(
         children: <Widget>[
-          Text(
+          const Text(
             "",
             style: TextStyle(
               fontSize: 20.0,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Row(
@@ -381,19 +383,19 @@ class _AddEventPageState extends State<AddEventPage> {
                   onPressed: () {
                     getImage(ImageSource.camera);
                   },
-                  label: Text(
+                  label: const Text(
                     "Camera",
                     style: TextStyle(color: Colors.teal),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 TextButton.icon(
                   icon: Icon(Icons.image,
                       color: Theme.of(context).iconTheme.color),
                   onPressed: () {
                     getImage(ImageSource.gallery);
                   },
-                  label: Text(
+                  label: const Text(
                     "Gallery",
                     style: TextStyle(color: Colors.teal),
                   ),

@@ -13,12 +13,12 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 
-var uuid = Uuid();
+var uuid = const Uuid();
 
 class RegisterInfo extends StatefulWidget {
   final Function(String)? onNationalitySelected;
 
-  const RegisterInfo({this.onNationalitySelected});
+  const RegisterInfo({super.key, this.onNationalitySelected});
 
   @override
   State<RegisterInfo> createState() => _RegisterInfoState();
@@ -60,7 +60,7 @@ class _RegisterInfoState extends State<RegisterInfo> {
     await uploadImageToFirestore(selectedImage);
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => cheak(),
+        builder: (context) => const cheak(),
       ),
     );
   }
@@ -105,7 +105,7 @@ class _RegisterInfoState extends State<RegisterInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('Register')),
+        title: const Center(child: Text('Register')),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -125,7 +125,7 @@ class _RegisterInfoState extends State<RegisterInfo> {
                     }
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextForm(
@@ -139,7 +139,7 @@ class _RegisterInfoState extends State<RegisterInfo> {
                     }
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Column(
@@ -151,7 +151,7 @@ class _RegisterInfoState extends State<RegisterInfo> {
                         color: Theme.of(context).hintColor,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Row(
                       children: [
                         Radio<String>(
@@ -164,8 +164,8 @@ class _RegisterInfoState extends State<RegisterInfo> {
                             });
                           },
                         ),
-                        Text('Male'),
-                        SizedBox(width: 16),
+                        const Text('Male'),
+                        const SizedBox(width: 16),
                         Radio<String>(
                           value: 'Female',
                           groupValue: selectedGender,
@@ -176,16 +176,16 @@ class _RegisterInfoState extends State<RegisterInfo> {
                             });
                           },
                         ),
-                        Text('Female'),
+                        const Text('Female'),
                       ],
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 BirthdayInputWidget(onDateSelected: handleDateSelected),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextForm(
@@ -200,7 +200,7 @@ class _RegisterInfoState extends State<RegisterInfo> {
                     }
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextForm(
@@ -215,13 +215,13 @@ class _RegisterInfoState extends State<RegisterInfo> {
                     }
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 PhoneNumberInputWidget(onPhoneNumberChanged: (value) {
                   phone = value;
                 }),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Text(
@@ -230,7 +230,7 @@ class _RegisterInfoState extends State<RegisterInfo> {
                     color: Theme.of(context).hintColor,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 CountryListPick(
                   theme: CountryTheme(
                     initialSelection: 'Saudi Arabia',
@@ -247,25 +247,17 @@ class _RegisterInfoState extends State<RegisterInfo> {
                     widget.onNationalitySelected!(selectedNationality);
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 CityPickerWidget(onCitySelected: (value) {
                   city = value;
                 }),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Visibility(
                   visible: editMode,
-                  child: Container(
-                    height: 150,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(6),
-                        image: DecorationImage(
-                            image: NetworkImage(editModeImageURL))),
-                  ),
                   replacement: GestureDetector(
                     onTap: () {
                       showModalBottomSheet(
@@ -274,7 +266,7 @@ class _RegisterInfoState extends State<RegisterInfo> {
                       );
                     },
                     child: selectedImage != null
-                        ? Container(
+                        ? SizedBox(
                             height: 150,
                             width: MediaQuery.of(context).size.width,
                             child: ClipRRect(
@@ -296,7 +288,7 @@ class _RegisterInfoState extends State<RegisterInfo> {
                                 ),
                                 borderRadius: BorderRadius.circular(6)),
                             width: MediaQuery.of(context).size.width,
-                            child: Column(
+                            child: const Column(
                               children: [
                                 SizedBox(height: 30),
                                 Icon(Icons.account_box, size: 50.0),
@@ -308,19 +300,27 @@ class _RegisterInfoState extends State<RegisterInfo> {
                             ),
                           ),
                   ),
+                  child: Container(
+                    height: 150,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(6),
+                        image: DecorationImage(
+                            image: NetworkImage(editModeImageURL))),
+                  ),
                 ),
-                Divider(),
+                const Divider(),
                 ElevatedButton(
                   onPressed: _valdiate,
-                  child: Text('save iinfo'),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.teal,
                     backgroundColor: Theme.of(context).colorScheme.background,
 
-                    textStyle: TextStyle(fontSize: 16),
+                    textStyle: const TextStyle(fontSize: 16),
 
-                    padding: EdgeInsets.all(12), // Set the button padding
+                    padding: const EdgeInsets.all(12), // Set the button padding
                   ),
+                  child: const Text('save iinfo'),
                 ),
               ],
             ),
@@ -334,19 +334,19 @@ class _RegisterInfoState extends State<RegisterInfo> {
     return Container(
       height: 100.0,
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         horizontal: 95,
         vertical: 20,
       ),
       child: Column(
         children: <Widget>[
-          Text(
+          const Text(
             "",
             style: TextStyle(
               fontSize: 20.0,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Row(
@@ -358,19 +358,19 @@ class _RegisterInfoState extends State<RegisterInfo> {
                   onPressed: () {
                     getImage(ImageSource.camera);
                   },
-                  label: Text(
+                  label: const Text(
                     "Camera",
                     style: TextStyle(color: Colors.teal),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 TextButton.icon(
                   icon: Icon(Icons.image,
                       color: Theme.of(context).iconTheme.color),
                   onPressed: () {
                     getImage(ImageSource.gallery);
                   },
-                  label: Text(
+                  label: const Text(
                     "Gallery",
                     style: TextStyle(color: Colors.teal),
                   ),

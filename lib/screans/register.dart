@@ -30,7 +30,7 @@ class _RegisterState extends State<Register> {
 
       print(userCredintial);
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => RegisterInfo(),
+        builder: (context) => const RegisterInfo(),
       ));
     } on FirebaseAuthException catch (error) {
       if (error.code == 'email-already-in-use') {
@@ -57,7 +57,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register'),
+        title: const Text('Register'),
       ),
       body: Form(
         key: scafoldKey,
@@ -69,7 +69,7 @@ class _RegisterState extends State<Register> {
               TextForm(
                 controler: emailCont,
                 hint: 'Email  Address',
-                icon: Icon(Icons.email),
+                icon: const Icon(Icons.email),
                 valid: (value) {
                   if (value.isEmpty) {
                     return 'pls enter email';
@@ -82,7 +82,7 @@ class _RegisterState extends State<Register> {
                 hint: 'Password',
                 pass: true,
                 controler: passCont,
-                icon: Icon(Icons.password),
+                icon: const Icon(Icons.password),
                 valid: (value) {
                   if (value.isEmpty) {
                     return 'pls enter password';
@@ -91,10 +91,10 @@ class _RegisterState extends State<Register> {
                   }
                 },
               ),
-              Divider(),
+              const Divider(),
               ElevatedButton(
                 onPressed: _valdiate,
-                child: Text('sign up'),
+                child: const Text('sign up'),
               ),
             ],
           ),

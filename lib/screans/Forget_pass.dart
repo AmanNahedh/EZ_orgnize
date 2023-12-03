@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../General/Text_Filled.dart';
-import '../General/buttons.dart';
 
 
 class Forget_pass extends StatefulWidget {
@@ -27,7 +26,7 @@ class _Forget_passState extends State<Forget_pass> {
       showDialog
         (context: context,
         builder: (context) {
-          return AlertDialog(
+          return const AlertDialog(
             content: Text("Password reset link sent , Cheack Your mail Box"),
           );
         },
@@ -58,13 +57,13 @@ class _Forget_passState extends State<Forget_pass> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal:20.0),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal:20.0),
           child: Text("Enter Your Email ,and We will send you reset link",
           textAlign: TextAlign.center,
           ),
         ),
-          SizedBox(
+          const SizedBox(
             height: 25,
           ),
         Text_Filled(
@@ -81,7 +80,7 @@ class _Forget_passState extends State<Forget_pass> {
           //),
           ElevatedButton(
             onPressed: PasswordReset,
-            child: Text('Reset Password'),
+            child: const Text('Reset Password'),
           ),
 
 

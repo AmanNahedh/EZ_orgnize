@@ -30,7 +30,7 @@ class _AdminsState extends State<Admins> {
           final data = doc.data();
           if (data != null) {
             data['id'] = doc.id;
-            return UserModel.fromSnapshot(data as Map<String, dynamic>);
+            return UserModel.fromSnapshot(data);
           } else {
             return null;
           }
@@ -63,7 +63,7 @@ class _AdminsState extends State<Admins> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admins'),
+        title: const Text('Admins'),
       ),
       body: Column(
         children: [
@@ -71,7 +71,7 @@ class _AdminsState extends State<Admins> {
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               onChanged: searchMembers,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Search',
                 prefixIcon: Icon(Icons.search),
               ),
@@ -79,7 +79,7 @@ class _AdminsState extends State<Admins> {
           ),
           Expanded(
             child: displayedMembers.isEmpty
-                ? Center(
+                ? const Center(
                     child: Text('No members found'),
                   )
                 : ListView.builder(
@@ -94,7 +94,7 @@ class _AdminsState extends State<Admins> {
                           ),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
-                        margin: EdgeInsets.all(8.0),
+                        margin: const EdgeInsets.all(8.0),
                         child: ListTile(
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(
@@ -121,10 +121,10 @@ class _AdminsState extends State<Admins> {
                                 child: TextButton(
                                   onPressed: () => changeValidity(
                                       member.id.toString(), 'organizer'),
-                                  child: Text('organizer'),
+                                  child: const Text('organizer'),
                                 ),
                               ),
-                              SizedBox(width: 8.0),
+                              const SizedBox(width: 8.0),
                               // Add some spacing between the buttons
                               Container(
                                 decoration: BoxDecoration(
@@ -137,7 +137,7 @@ class _AdminsState extends State<Admins> {
                                 child: TextButton(
                                   onPressed: () => changeValidity(
                                       member.id.toString(), 'TeamLeader'),
-                                  child: Text('Team leader'),
+                                  child: const Text('Team leader'),
                                 ),
                               ),
                             ],
