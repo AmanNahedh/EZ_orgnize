@@ -36,9 +36,6 @@ class _RegisterInfoState extends State<RegisterInfo> {
       return;
     }
 
-    print(FirebaseAuth.instance.currentUser!.uid);
-
-    print("---------------------------------");
     await FirebaseFirestore.instance
         .collection('Users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -54,6 +51,8 @@ class _RegisterInfoState extends State<RegisterInfo> {
       "tallCont": tallCont.text,
       "weightCont": weightCont.text,
       "id": FirebaseAuth.instance.currentUser!.uid,
+      "work time": '',
+      "rating": '',
     }).then((value) async {
       print('done');
     });

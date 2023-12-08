@@ -14,12 +14,10 @@ class _NavBarMemberState extends State<NavBarMember> {
 
   final bottom = [
     const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-    const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
     const BottomNavigationBarItem(icon: Icon(Icons.person), label: 'profile'),
   ];
   final List<Widget> screens = [
     const HomePageMember(), // Replace with the appropriate widget for your home page
-    const HomePageMember(), // Replace with the appropriate widget for the second item
     const Profile(),
   ];
 
