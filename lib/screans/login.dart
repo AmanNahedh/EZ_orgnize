@@ -74,7 +74,6 @@ class _LogInState extends State<LogIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -86,6 +85,7 @@ class _LogInState extends State<LogIn> {
 
                 //Company logo
                 const Icon(
+                  color: Colors.teal,
                   Icons.lock,
                   size: 100,
                 ),
@@ -97,7 +97,7 @@ class _LogInState extends State<LogIn> {
                 const Text(
                   "Sign IN !",
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.teal,
                     fontSize: 36,
                   ),
                 ),
@@ -142,8 +142,6 @@ class _LogInState extends State<LogIn> {
                         },
                         child: const Text(
                           'Forgot Password?',
-                          style: TextStyle(color: Colors.blue,
-                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],
@@ -163,7 +161,6 @@ class _LogInState extends State<LogIn> {
                   children: [
                     Text(
                       'Not a member?',
-                      style: TextStyle(color: Colors.grey[700]),
                     ),
                     const SizedBox(width: 4),
                     TextButton(

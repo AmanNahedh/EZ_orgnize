@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ez_orgnize/screans/admin/home_page_admin.dart';
 import 'package:ez_orgnize/screans/admin/nav_bar_admin.dart';
 import 'package:ez_orgnize/screans/login.dart';
-import 'package:ez_orgnize/screans/team%20leader/home_page_leader.dart';
 import 'package:ez_orgnize/screans/team%20leader/nav_bar_leader.dart';
 import 'package:ez_orgnize/utils/onesignal_manager.dart';
 import 'package:ez_orgnize/widget/nav_bar.dart';
@@ -21,14 +19,13 @@ var Validity;
 
 class _cheakState extends State<cheak> {
   Future<void> checkValidity() async {
-      var user = await FirebaseFirestore.instance
-          .collection('Users')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .get();
-      setState(() {
-        Validity = user.data()!['Validity'];
-      });
-
+    var user = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    setState(() {
+      Validity = user.data()!['Validity'];
+    });
   }
 
   @override
@@ -74,9 +71,9 @@ class _cheakState extends State<cheak> {
           //Show home page
           if (snapshot.hasData) {
             if (Validity == 'admin') {
-              return const HomePageAdmin();
+              return const NavBarAdmin();
             } else if (Validity == 'TeamLeader') {
-              return const HomePageLeader();
+              return const NavBarLeader();
             } else
               return const NavBarMember();
           }

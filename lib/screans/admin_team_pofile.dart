@@ -1,24 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ez_orgnize/modeals/usermodeal.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MemberProfile extends StatefulWidget {
-  MemberProfile({Key? key, required this.id}) : super(key: key);
-  var id;
+class AdminTeamProfile extends StatefulWidget {
+  const AdminTeamProfile({Key? key}) : super(key: key);
 
   @override
-  State<MemberProfile> createState() => _MemberProfileState();
+  State<AdminTeamProfile> createState() => _AdminTeamProfileState();
 }
 
-class _MemberProfileState extends State<MemberProfile> {
+class _AdminTeamProfileState extends State<AdminTeamProfile> {
+  final id = FirebaseAuth.instance.currentUser!.uid;
   var time = '';
   var rat = '';
 
   void fetchData() async {
     await FirebaseFirestore.instance
         .collection('Users')
-        .doc(widget.id)
+        .doc(id)
         .get()
         .then((value) {
       setState(() {
@@ -36,13 +37,15 @@ class _MemberProfileState extends State<MemberProfile> {
 
   @override
   Widget build(BuildContext context) {
+    final id = FirebaseAuth.instance.currentUser!.uid;
+    final email = FirebaseAuth.instance.currentUser!.email;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
       ),
       body: FutureBuilder<DocumentSnapshot>(
-        future:
-            FirebaseFirestore.instance.collection('Users').doc(widget.id).get(),
+        future: FirebaseFirestore.instance.collection('Users').doc(id).get(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -77,12 +80,12 @@ class _MemberProfileState extends State<MemberProfile> {
                   child: ClipOval(
                     child: image.isEmpty
                         ? const Center(
-                            child: CircularProgressIndicator(),
-                          )
+                      child: CircularProgressIndicator(),
+                    )
                         : Image.network(
-                            image,
-                            fit: BoxFit.cover,
-                          ),
+                      image,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
@@ -93,55 +96,9 @@ class _MemberProfileState extends State<MemberProfile> {
                 '$firstName $lastName',
                 style: GoogleFonts.abhayaLibre().copyWith(fontSize: 50),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 70,
-                    width: 100,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.teal),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('$time'),
-                          Text(
-                            'work hour',
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 70,
-                    width: 80,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.teal),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [Text(rat), Text('rating')],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Divider(
-                thickness: 2,
-                endIndent: 40,
-                indent: 40,
-                color: Colors.teal[100],
+              Text(
+                '$email',
+                style: GoogleFonts.abhayaLibre().copyWith(fontSize: 25),
               ),
             ],
           );

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 
 class button extends StatelessWidget {
-
   final void Function()? onPressed;
   final String text;
 
-  const button({super.key, required this.onPressed,
-    required this.text});
+  const button({super.key, required this.onPressed, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +14,7 @@ class button extends StatelessWidget {
         padding: const EdgeInsets.all(25),
         margin: const EdgeInsets.symmetric(horizontal: 25),
         decoration: BoxDecoration(
-          color: Colors.black,
+          color: Colors.teal,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(

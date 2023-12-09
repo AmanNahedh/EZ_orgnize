@@ -1,4 +1,5 @@
 import 'package:ez_orgnize/screans/admin/home_page_admin.dart';
+import 'package:ez_orgnize/screans/admin_team_pofile.dart';
 import 'package:ez_orgnize/screans/member/home_page_useer.dart';
 import 'package:ez_orgnize/screans/member/profile.dart';
 
@@ -16,13 +17,11 @@ class _NavBarAdminState extends State<NavBarAdmin> {
 
   final bottom = [
     const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-    const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
     const BottomNavigationBarItem(icon: Icon(Icons.person), label: 'profile'),
   ];
   final List<Widget> screens = [
-    const HomePageAdmin(), // Replace with the appropriate widget for your home page
-    const HomePageMember(), // Replace with the appropriate widget for the second item
-    const Profile(),
+    const HomePageAdmin(), // Replace with the appropriate widget for your home page// Replace with the appropriate widget for the second item
+    const AdminTeamProfile(),
   ];
 
   @override
