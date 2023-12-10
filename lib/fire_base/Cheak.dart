@@ -3,7 +3,7 @@ import 'package:ez_orgnize/screans/admin/nav_bar_admin.dart';
 import 'package:ez_orgnize/screans/login.dart';
 import 'package:ez_orgnize/screans/team%20leader/nav_bar_leader.dart';
 import 'package:ez_orgnize/utils/onesignal_manager.dart';
-import 'package:ez_orgnize/widget/nav_bar.dart';
+import 'package:ez_orgnize/screans/member/nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
