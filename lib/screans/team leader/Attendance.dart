@@ -110,7 +110,6 @@ class _AttendanceState extends State<Attendance> {
     });
   }
 
-  void signAttendance() {}
 
   void absent() async {
     await FirebaseFirestore.instance
