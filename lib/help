@@ -1,5 +1,0 @@
-In this example, the primary color is set to Colors.indigo, which is a cool and deep blue shade. The accent color is set to Colors.teal, which is a complementary cool color. The scaffold background color is set to Colors.grey[100], which is a light and neutral shade of grey. The app bar color is set to Colors.white, providing a clean and coordinated look.
-
-The text styles and button colors are adjusted to match the color scheme accordingly.
-
-Remember to update the MyApp widget to use this modified theme:
