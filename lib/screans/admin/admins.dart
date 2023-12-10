@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ez_orgnize/modeals/usermodeal.dart';
+import 'package:ez_orgnize/Models/usermodeal.dart';
 import 'package:ez_orgnize/screans/admin/member_profile.dart';
 import 'package:flutter/material.dart';
 

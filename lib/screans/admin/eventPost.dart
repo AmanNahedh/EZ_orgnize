@@ -1,4 +1,4 @@
-import 'package:ez_orgnize/modeals/event_model.dart';
+import 'package:ez_orgnize/Models/event_model.dart';
 import 'package:ez_orgnize/screans/admin/applayed_members.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ez_orgnize/modeals/event_model.dart';
-import 'package:ez_orgnize/modeals/usermodeal.dart';
+import 'package:ez_orgnize/Models/event_model.dart';
+import 'package:ez_orgnize/Models/usermodeal.dart';
 import 'package:ez_orgnize/screans/team%20leader/Attendance.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

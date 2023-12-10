@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ez_orgnize/modeals/event_model.dart';
-import 'package:ez_orgnize/modeals/usermodeal.dart';
+import 'package:ez_orgnize/Models/event_model.dart';
+import 'package:ez_orgnize/Models/usermodeal.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -40,8 +40,7 @@ class _EventDetailsMemberState extends State<EventDetailsMember> {
         .get();
 
     if (snapshot.exists) {
-      Map<String, dynamic>? data =
-          snapshot.data() as Map<String, dynamic>?;
+      Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
       if (data != null) {
         setState(() {
           male = List<String>.from(data['maleAccept'] ?? []);

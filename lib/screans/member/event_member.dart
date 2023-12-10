@@ -1,13 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ez_orgnize/modeals/event_model.dart';
-import 'package:ez_orgnize/modeals/usermodeal.dart';
+import 'package:ez_orgnize/Models/event_model.dart';
+import 'package:ez_orgnize/Models/usermodeal.dart';
 import 'package:ez_orgnize/screans/member/event_details_member.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class EventMember extends StatefulWidget {
-  const EventMember({super.key,});
+  const EventMember({
+    super.key,
+  });
 
   @override
   State<EventMember> createState() => _EventMemberState();
@@ -59,9 +61,11 @@ class _EventMemberState extends State<EventMember> {
         .map((doc) => Event.fromMap(doc.data() as Map<String, dynamic>))
         .toList();
 
-    final today = DateTime(DateTime.now().year, DateTime.now().month,DateTime.now().day);
+    final today =
+        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
     for (var element in serverEvents) {
-      final DateTime eventDate = DateTime(element.eventDate.year,element.eventDate.month,element.eventDate.day);
+      final DateTime eventDate = DateTime(element.eventDate.year,
+          element.eventDate.month, element.eventDate.day);
 
       if (eventDate.millisecondsSinceEpoch >= today.millisecondsSinceEpoch) {
         print(element.eventDate);
@@ -72,7 +76,6 @@ class _EventMemberState extends State<EventMember> {
       getCurrentUserInfo();
       _isLoading = false;
     });
-
   }
 
   @override
