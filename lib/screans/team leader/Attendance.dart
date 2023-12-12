@@ -125,7 +125,9 @@ class _AttendanceState extends State<Attendance> {
     });
     setState(() {
       fetchTimes();
+      print('taking absent done hereeeeeeeeeeee');
     });
+
   }
 
   Future<void> startShift() async {

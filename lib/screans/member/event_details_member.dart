@@ -114,7 +114,7 @@ class _EventDetailsMemberState extends State<EventDetailsMember> {
       femaleCounter = female.length;
 
       print('female added');
-
+      print('immmmmmheeeeeeeerrrreeee');
       await FirebaseFirestore.instance
           .collection('events')
           .doc(widget.event.eventName)

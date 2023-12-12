@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
+/*
+allows users to input their birthdays by selecting a date from a date picker
+input birthdays by showing a date picker when the user taps on a container
+The selected date is then displayed in the container.
+ */
 class BirthdayInputWidget extends StatefulWidget {
   final Function(DateTime) onDateSelected;
 
@@ -12,7 +16,7 @@ class BirthdayInputWidget extends StatefulWidget {
 
 class _BirthdayInputWidgetState extends State<BirthdayInputWidget> {
   late DateTime selectedDate;
-
+//Opens a date picker dialog
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,

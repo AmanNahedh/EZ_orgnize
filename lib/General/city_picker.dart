@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-
+/*
+displays a dropdown button for selecting a city
+ */
 class CityPickerWidget extends StatefulWidget {
   final Function(String)? onCitySelected;
 
