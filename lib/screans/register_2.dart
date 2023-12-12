@@ -51,8 +51,8 @@ class _RegisterInfoState extends State<RegisterInfo> {
       "tallCont": tallCont.text,
       "weightCont": weightCont.text,
       "id": FirebaseAuth.instance.currentUser!.uid,
-      "work time": '',
-      "rating": '',
+      "work time": 0,
+      "rating": 0,
     }).then((value) async {
       print('done');
     });

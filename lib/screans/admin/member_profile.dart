@@ -128,7 +128,7 @@ class _MemberProfileState extends State<MemberProfile> {
                       padding: EdgeInsets.all(8.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [Text(rat), Text('rating')],
+                        children: [Text(double.parse(rat.toString()).toStringAsFixed(1).toString()), Text('rating')],
                       ),
                     ),
                   ),

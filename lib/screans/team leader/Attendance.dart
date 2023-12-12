@@ -42,6 +42,7 @@ class _AttendanceState extends State<Attendance> {
     } else {
       timeDifference = endTimeTime.difference(startTimeTime);
     }
+
     await FirebaseFirestore.instance
         .collection('events')
         .doc(widget.event.eventName)
@@ -51,7 +52,7 @@ class _AttendanceState extends State<Attendance> {
       'respect the time': time,
       'Performance at work': preformance,
       'Good behavior': behavior,
-      'timeDifference': timeDifference.inHours.toString(),
+      'timeDifference': timeDifference.inHours,
     });
 
     await FirebaseFirestore.instance
@@ -109,7 +110,6 @@ class _AttendanceState extends State<Attendance> {
       behavior = value.data()!['Good behavior'] ?? '';
     });
   }
-
 
   void absent() async {
     await FirebaseFirestore.instance
