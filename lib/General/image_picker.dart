@@ -1,7 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
+/*
+allows users to select an image from either the camera or the photo gallery
+The selected image is displayed and saved in firebase
+ */
 class ImagePickerWidget extends StatefulWidget {
   final Function(File)? onImageSelected;
 
@@ -13,7 +16,8 @@ class ImagePickerWidget extends StatefulWidget {
 
 class _ImagePickerWidgetState extends State<ImagePickerWidget> {
   File? _image;
-
+//open the camera or gallery, allowing the user to pick an image.
+// The selected image file is stored in the _image state.
   Future<void> _pickImage(ImageSource source) async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: source);
@@ -56,6 +60,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
         ),
         if (_image != null) ...[
           const SizedBox(height: 8),
+          //The selected image is displayed using the Image.file widget
           Image.file(
             _image!,
             height: 200,

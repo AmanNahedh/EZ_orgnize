@@ -1,7 +1,6 @@
 import 'package:ez_orgnize/screans/admin/home_page_admin.dart';
-import 'package:ez_orgnize/screans/admin_team_pofile.dart';
-import 'package:ez_orgnize/screans/member/home_page_useer.dart';
-import 'package:ez_orgnize/screans/member/profile.dart';
+import 'package:ez_orgnize/screans/team%20leader/admin_team_pofile.dart';
+
 
 import 'package:flutter/material.dart';
 

@@ -7,7 +7,14 @@ import 'package:ez_orgnize/screans/member/nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
+/*
+this page checking the validity of a user and navigating them to the
+which screen based on their role (admin, TeamLeader, or Member).
 
+
+
+
+ */
 class cheak extends StatefulWidget {
   const cheak({super.key});
 
@@ -16,7 +23,7 @@ class cheak extends StatefulWidget {
 }
 
 var Validity;
-
+//Fetches the user's data from Firebase
 class _cheakState extends State<cheak> {
   Future<void> checkValidity() async {
     var user = await FirebaseFirestore.instance
@@ -33,7 +40,7 @@ class _cheakState extends State<cheak> {
     super.initState();
     _init();
   }
-
+// Initializes the widget by checking the user's validity
   Future<void> _init() async {
     await checkValidity();
     await OneSignalManager.initialize();
@@ -68,6 +75,7 @@ class _cheakState extends State<cheak> {
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
+          //snapshot.hasData), checks the user's validity and show screen.
           //Show home page
           if (snapshot.hasData) {
             if (Validity == 'admin') {
