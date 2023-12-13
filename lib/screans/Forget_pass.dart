@@ -48,7 +48,7 @@ class _Forget_passState extends State<Forget_pass> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:Colors.black,
+        backgroundColor:Colors.teal,
         elevation: 0,
 
       ),
@@ -79,6 +79,7 @@ class _Forget_passState extends State<Forget_pass> {
           //  onPressed: Forget_pass,
           //),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.teal),
             onPressed: PasswordReset,
             child: const Text('Reset Password'),
           ),
