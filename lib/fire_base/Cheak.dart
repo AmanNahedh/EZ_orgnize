@@ -10,10 +10,6 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 /*
 this page checking the validity of a user and navigating them to the
 which screen based on their role (admin, TeamLeader, or Member).
-
-
-
-
  */
 class cheak extends StatefulWidget {
   const cheak({super.key});
