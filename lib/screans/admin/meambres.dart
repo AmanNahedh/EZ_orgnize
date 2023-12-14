@@ -2,7 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ez_orgnize/Models/usermodeal.dart';
 import 'package:ez_orgnize/screans/admin/member_profile.dart';
 import 'package:flutter/material.dart';
-
+/*
+display a list of members, allow searching,
+ and provide options to change the validity of each member
+ */
 class Meambers extends StatefulWidget {
   const Meambers({Key? key}) : super(key: key);
 
@@ -42,14 +45,15 @@ class _MeambersState extends State<Meambers> {
       displayedMembers = members;
     });
   }
-
+// method is responsible for updating the validity
+// status of a member in the Firestore database
   Future<void> changeValidity(String memberId, String validity) async {
     final memberDoc =
         FirebaseFirestore.instance.collection('Users').doc(memberId);
     await memberDoc.update({'Validity': validity});
     fetchMembers(); // Refresh the member list after updating validity
   }
-
+//method is used to filter the list of members
   void searchMembers(String query) {
     setState(() {
       displayedMembers = allMembers.where((member) {

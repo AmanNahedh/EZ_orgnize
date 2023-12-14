@@ -2,7 +2,10 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+/*
+handles the upload of an image file to Firebase Storage
+ and saves the download URL of the uploaded image in Cloud Firebase
+ */
 Future<void> uploadImageToFirestore(File imageFile) async {
   try {
     if (!await imageFile.exists()) {

@@ -78,6 +78,7 @@ class _Forget_passState extends State<Forget_pass> {
             //text: "Sign In",
           //  onPressed: Forget_pass,
           //),
+
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.teal),
             onPressed: PasswordReset,

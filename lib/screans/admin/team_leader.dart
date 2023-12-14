@@ -19,7 +19,8 @@ class _TeamLeaderState extends State<TeamLeader> {
     super.initState();
     fetchMembers();
   }
-
+//method retrieves team leaders from the Firestore collection
+// based on their validity as "TeamLeader."
   Future<void> fetchMembers() async {
     final snapshot = await FirebaseFirestore.instance
         .collection('Users')
@@ -42,14 +43,14 @@ class _TeamLeaderState extends State<TeamLeader> {
       displayedMembers = members;
     });
   }
-
+//method updates the validity of a team leader in Firestore when called
   Future<void> changeValidity(String memberId, String validity) async {
     final memberDoc =
         FirebaseFirestore.instance.collection('Users').doc(memberId);
     await memberDoc.update({'Validity': validity});
     fetchMembers(); // Refresh the member list after updating validity
   }
-
+//method filters members
   void searchMembers(String query) {
     setState(() {
       displayedMembers = allMembers.where((member) {

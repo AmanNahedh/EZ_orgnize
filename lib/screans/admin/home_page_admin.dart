@@ -7,7 +7,10 @@ import 'package:ez_orgnize/screans/admin/team_leader.dart';
 import 'package:ez_orgnize/utils/onesignal_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+/*
+ provides a navigation menu for the admin user with options to view and manage
+  members, admins, team leaders, add events, and view existing events
+ */
 class HomePageAdmin extends StatelessWidget {
   const HomePageAdmin({Key? key}) : super(key: key);
 

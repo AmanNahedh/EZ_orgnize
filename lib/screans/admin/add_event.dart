@@ -6,14 +6,17 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-
+/*
+this code provides a complete solution for adding events,
+integrating with Firebase and notifying organizers about new events.
+ */
 class AddEventPage extends StatefulWidget {
   const AddEventPage({super.key});
 
   @override
   _AddEventPageState createState() => _AddEventPageState();
 }
-
+//uses for several text input fields
 class _AddEventPageState extends State<AddEventPage> {
   DateTime selectedDate = DateTime.now();
   final _eventNameController = TextEditingController();
@@ -25,7 +28,7 @@ class _AddEventPageState extends State<AddEventPage> {
   bool editMode = false;
   String editModeImageURL = '';
   bool isUploading = false;
-
+//method allow the user to select the date for the event
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -41,7 +44,7 @@ class _AddEventPageState extends State<AddEventPage> {
   }
 
   TimeOfDay? selectedTime;
-
+//method allow the user to select the time for the event
   Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay? pickedTime = await showTimePicker(
       context: context,
@@ -71,7 +74,8 @@ class _AddEventPageState extends State<AddEventPage> {
     final eventDetails = _eventDetailsController.text;
     final maleOrganizers = int.parse(_maleOrganizersController.text);
     final femaleOrganizers = int.parse(_femaleOrganizersController.text);
-
+//method is used to notify the framework that
+// the internal state of a StatefulWidget has changed
     setState(() {
       isUploading = true;
     });
@@ -407,6 +411,9 @@ class _AddEventPageState extends State<AddEventPage> {
 
   Future getImage(ImageSource source) async {
     var image = await ImagePicker.platform
+    //ImagePicker.platform.getImageFromSource
+    // method is used to open the camera or gallery
+    // and return the selected image.
         .getImageFromSource(source: source); //pickImage
     print('printing source of image $source');
     setState(() {

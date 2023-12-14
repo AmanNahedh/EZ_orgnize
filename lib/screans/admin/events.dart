@@ -3,7 +3,10 @@ import 'package:ez_orgnize/Models/event_model.dart';
 import 'package:ez_orgnize/screans/admin/eventPost.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
+/*
+ interface for users to browse through a list
+of events and view their details
+ */
 class Events extends StatefulWidget {
   const Events({super.key});
 
