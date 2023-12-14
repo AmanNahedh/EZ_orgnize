@@ -5,7 +5,9 @@ import 'package:ez_orgnize/screans/member/event_details_member.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
+/*
+displays a list of events, filters them based on dates, and handles user-specific visibility based on gender.
+ */
 class EventMember extends StatefulWidget {
   const EventMember({
     super.key,
@@ -14,7 +16,7 @@ class EventMember extends StatefulWidget {
   @override
   State<EventMember> createState() => _EventMemberState();
 }
-
+//class
 class _EventMemberState extends State<EventMember> {
   late List<Event> events = [];
   bool _isLoading = true;

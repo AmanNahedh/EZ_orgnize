@@ -5,7 +5,12 @@ import 'package:ez_orgnize/screans/admin/member_profile.dart';
 import 'package:ez_orgnize/utils/onesignal_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+/*
+displays a list of members who have applied to an event.
+This widget allows you to search for members,
+view their profiles, accept them into the event,
+or remove them from the accepted list
+ */
 class ApplayedMemebers extends StatefulWidget {
   const ApplayedMemebers({Key? key, required this.event}) : super(key: key);
   final Event event;
@@ -22,6 +27,7 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
   late List<String> accepted = [];
   var counter = 0;
 
+// function is called to retrieve members who have applied to the even
   Future<List<UserModel>> fetchAppliedMembers() async {
     allMembers.clear();
     await fetchAcceptedMembers();
@@ -50,7 +56,7 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
 
     return allMembers;
   }
-
+// function, which filters the displayed members
   void searchMembers(String query) {
     setState(() {
       displayedMembers = allMembers.where((member) {
@@ -76,7 +82,7 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
       }
     }
   }
-
+//functions are used to update the list of accepted members in Firestore
   void accept(user) async {
     await fetchAcceptedMembers();
     accepted.add(user);
@@ -97,7 +103,7 @@ class _ApplayedMemebersState extends State<ApplayedMemebers> {
         content: "you have been chosen in the event",
         targets: notfi);
   }
-
+//functions are used to update the list of accepted members in Firestore
   void remove(user) async {
     await fetchAcceptedMembers();
     accepted.remove(user);

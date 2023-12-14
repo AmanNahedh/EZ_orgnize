@@ -4,7 +4,9 @@ import 'package:ez_orgnize/Models/usermodeal.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
+/*
+viewing event details and applying/unapplying to the event
+ */
 class EventDetailsMember extends StatefulWidget {
   final Event event;
 
@@ -23,7 +25,9 @@ class _EventDetailsMemberState extends State<EventDetailsMember> {
   var applayed = false;
 
   var isLoading = true;
-
+//method is responsible for fetching and updating
+// the lists of male and female participants who have applied
+// to a specific event
   void getApplaying() async {
     print(widget.event.eventName);
     setState(() {
@@ -58,7 +62,8 @@ class _EventDetailsMemberState extends State<EventDetailsMember> {
       isLoading = false;
     });
   }
-
+//method is an asynchronous function
+// that retrieves information about the current user from Firestore.
   Future<UserModel?> getCurrentUserInfo() async {
     try {
       DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
@@ -88,7 +93,8 @@ class _EventDetailsMemberState extends State<EventDetailsMember> {
     getCurrentUserInfo();
     checkApplayed();
   }
-
+//method checks
+// if the current user (authenticated user) has applied for the event
   void checkApplayed() {
     if (male.contains(FirebaseAuth.instance.currentUser!.uid) ||
         female.contains(FirebaseAuth.instance.currentUser!.uid)) {
@@ -97,7 +103,8 @@ class _EventDetailsMemberState extends State<EventDetailsMember> {
       });
     }
   }
-
+//method is used to handle the process of a user applying to the event
+//Depending on the user's gender
   void applyToEvent() async {
     getApplaying();
 
@@ -114,7 +121,7 @@ class _EventDetailsMemberState extends State<EventDetailsMember> {
       femaleCounter = female.length;
 
       print('female added');
-      print('immmmmmheeeeeeeerrrreeee');
+
       await FirebaseFirestore.instance
           .collection('events')
           .doc(widget.event.eventName)

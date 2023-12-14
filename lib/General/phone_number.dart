@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-
+/*
+allows users to input international phone numbers with country code selection and validation
+ */
 class PhoneNumberInputWidget extends StatefulWidget {
   final Function(String)? onPhoneNumberChanged;
 

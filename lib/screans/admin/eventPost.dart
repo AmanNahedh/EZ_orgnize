@@ -2,7 +2,11 @@ import 'package:ez_orgnize/Models/event_model.dart';
 import 'package:ez_orgnize/screans/admin/applayed_members.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
+/*
+view of a particular event, allowing users to
+explore details and navigate to see the members
+who have applied for the event
+ */
 class EventDetailsPage extends StatelessWidget {
   final Event event;
 

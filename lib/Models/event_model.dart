@@ -1,4 +1,8 @@
-
+/*
+This class is designed to represent and work with event data.
+ The fromMap method is particularly useful
+  when dealing with data retrieved from sources like Firebase
+ */
 class Event {
   final String eventName;
   final DateTime eventDate;
@@ -10,7 +14,7 @@ class Event {
   final int femaleCounter;
   final int femaleOrganizers;
   final String imageUrl;
-
+//constructor to initialize an Event object
   Event({
     required this.eventName,
     required this.eventDate,
@@ -23,7 +27,7 @@ class Event {
     required this.femaleOrganizers,
     required this.imageUrl,
   });
-
+//method creates an Event object from a Map<String, dynamic>
   factory Event.fromMap(Map<String, dynamic> map) {
     return Event(
       eventName: map['eventName'],

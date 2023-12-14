@@ -1,6 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+/*
+ class is designed to handle user-related data
+ and interactions with Firebase.
+ It encapsulates methods for retrieving user
+ information and fetching data for applied members
+ */
 class UserModel {
   final String? gender;
   final String? id;
@@ -12,7 +17,7 @@ class UserModel {
   final String? phoneNumber;
   final String? validity;
   final String? image;
-
+//constructor
   UserModel({
     this.gender,
     this.id,
@@ -25,7 +30,7 @@ class UserModel {
     this.validity,
     this.image,
   });
-
+//method that converts the UserModel object to a Map<String, dynamic>
   Map<String, dynamic> toJson() {
     return {
       "gender": gender,
@@ -40,7 +45,7 @@ class UserModel {
       "id": id,
     };
   }
-
+//method is used to create a UserModel object from a Map<String, dynamic>
   factory UserModel.fromSnapshot(Map<String, dynamic> snapshot) {
     return UserModel(
       gender: snapshot['gender'],
@@ -55,7 +60,8 @@ class UserModel {
       id: snapshot['id'],
     );
   }
-
+//method retrieves the current user's information
+// from Firebase based on the user's UID. It returns a UserModel object
   Future<UserModel?> getCurrentUserInfo() async {
     try {
       DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
@@ -80,7 +86,9 @@ class UserModel {
     }
   }
 
-//
+//method takes a list of member IDs (appliedMembers)
+// and a list of UserModel objects (appliedMembersData).
+// It fetches user data for each member ID and populates the list
   Future<List<UserModel>> fetchAppliedMembersData(
       List<String> appliedMembers, List<UserModel> appliedMembersData) async {
     try {

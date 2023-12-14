@@ -2,7 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ez_orgnize/Models/usermodeal.dart';
 import 'package:ez_orgnize/screans/admin/member_profile.dart';
 import 'package:flutter/material.dart';
-
+/*
+displays a list of admin members and allows you to search,
+ view profiles, and change the validity of the members
+ */
 class Admins extends StatefulWidget {
   const Admins({Key? key}) : super(key: key);
 
@@ -19,7 +22,7 @@ class _AdminsState extends State<Admins> {
     super.initState();
     fetchMembers();
   }
-
+//function is called to retrieve a list of admin members from Firestore
   Future<void> fetchMembers() async {
     final snapshot = await FirebaseFirestore.instance
         .collection('Users')
@@ -42,14 +45,14 @@ class _AdminsState extends State<Admins> {
       displayedMembers = members;
     });
   }
-
+//function is responsible for updating the validity of a member in Firestore
   Future<void> changeValidity(String memberId, String validity) async {
     final memberDoc =
         FirebaseFirestore.instance.collection('Users').doc(memberId);
     await memberDoc.update({'Validity': validity});
     fetchMembers(); // Refresh the member list after updating validity
   }
-
+//function, which filters the displayed members based on the search query
   void searchMembers(String query) {
     setState(() {
       displayedMembers = allMembers.where((member) {

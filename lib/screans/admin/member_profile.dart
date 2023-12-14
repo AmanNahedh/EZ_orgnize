@@ -14,7 +14,7 @@ class MemberProfile extends StatefulWidget {
 class _MemberProfileState extends State<MemberProfile> {
   var time = '';
   var rat = '';
-
+//fetchData method is responsible for fetching work time and rating
   void fetchData() async {
     await FirebaseFirestore.instance
         .collection('Users')
@@ -128,6 +128,8 @@ class _MemberProfileState extends State<MemberProfile> {
                       padding: EdgeInsets.all(8.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        //rating is formatted to display only one decimal place using
+                        // toStringAsFixed(1). This ensures a cleaner display of the rating
                         children: [Text(double.parse(rat.toString()).toStringAsFixed(1).toString()), Text('rating')],
                       ),
                     ),
