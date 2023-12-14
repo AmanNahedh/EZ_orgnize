@@ -40,7 +40,7 @@ class _RegisterInfoState extends State<RegisterInfo> {
         .collection('Users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .set({
-      "gender": 'selectedGender',
+      "gender": selectedGender,
       "FirstName": firstNameCont.text,
       "LastName": lastNameCont.text,
       "PhoneNumber": phone.toString(),
